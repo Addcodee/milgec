@@ -75,7 +75,7 @@ export default function LeadForm() {
               name="country"
               required
               defaultValue=""
-              className="w-full px-4 py-3.5 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
+              className="w-full px-4 py-3.5 min-h-[48px] appearance-none rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
             >
               <option value="" disabled>
                 Страна гражданства
@@ -90,7 +90,7 @@ export default function LeadForm() {
               name="program"
               required
               defaultValue=""
-              className="w-full px-4 py-3.5 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
+              className="w-full px-4 py-3.5 min-h-[48px] appearance-none rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
             >
               <option value="" disabled>
                 Уровень программы
@@ -105,7 +105,7 @@ export default function LeadForm() {
               name="startDate"
               required
               defaultValue=""
-              className="w-full px-4 py-3.5 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
+              className="w-full px-4 py-3.5 min-h-[48px] appearance-none rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
             >
               <option value="" disabled>
                 Когда планируете начать?
