@@ -2,6 +2,7 @@ const tiers = [
   {
     name: "Бесплатная оценка",
     price: "Бесплатно",
+    badge: "Начните здесь",
     best: "Хочу понять свои варианты",
     features: [
       "Анализ профиля",
@@ -11,6 +12,7 @@ const tiers = [
     ],
     cta: "Получить бесплатную оценку",
     featured: false,
+    free: true,
   },
   {
     name: "Пакет «Поступление»",
@@ -25,6 +27,7 @@ const tiers = [
     ],
     cta: "Начать поступление",
     featured: false,
+    free: false,
   },
   {
     name: "Полный пакет",
@@ -41,6 +44,7 @@ const tiers = [
     ],
     cta: "Полное сопровождение",
     featured: true,
+    free: false,
   },
 ];
 
@@ -67,8 +71,13 @@ export default function Pricing() {
                   Самый популярный
                 </div>
               )}
+              {t.free && (
+                <div className="text-xs text-success font-bold uppercase tracking-wider mb-2">
+                  {t.badge}
+                </div>
+              )}
               <h3 className="text-xl font-bold text-navy mb-1">{t.name}</h3>
-              <div className="text-3xl font-extrabold text-navy mb-2">
+              <div className={`text-3xl font-extrabold mb-2 ${t.free ? "text-success" : "text-navy"}`}>
                 {t.price}
               </div>
               <p className="text-text-muted text-sm mb-6">
@@ -89,7 +98,9 @@ export default function Pricing() {
                 className={`block text-center font-bold text-sm uppercase tracking-wider py-3 rounded-lg transition-colors ${
                   t.featured
                     ? "bg-gold hover:bg-gold-hover text-white"
-                    : "border-2 border-navy text-navy hover:bg-navy hover:text-white"
+                    : t.free
+                      ? "bg-success hover:bg-success/90 text-white"
+                      : "border-2 border-navy text-navy hover:bg-navy hover:text-white"
                 }`}
               >
                 {t.cta}

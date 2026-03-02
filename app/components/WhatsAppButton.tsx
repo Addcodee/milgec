@@ -1,7 +1,7 @@
 export default function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/8613792888176?text=Hi%20MilGEC%2C%20I%27m%20interested%20in%20studying%20in%20China.%20Can%20you%20help%20me%3F"
+      href="https://wa.me/8613792888176?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20MilGEC!%20%D0%9C%D0%B5%D0%BD%D1%8F%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B2%20%D0%9A%D0%B8%D1%82%D0%B0%D0%B5.%20%D0%9C%D0%BE%D0%B6%D0%B5%D1%82%D0%B5%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%87%D1%8C%3F"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 bg-whatsapp hover:scale-110 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-transform"

@@ -20,8 +20,8 @@ export default function Home() {
       <PainPoints />
       <Process />
       <Trust />
-      <CaseStudies />
       <Pricing />
+      <CaseStudies />
       <Filter />
       <LeadForm />
       <Footer />

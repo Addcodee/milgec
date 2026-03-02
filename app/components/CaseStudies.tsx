@@ -2,6 +2,7 @@ const cases = [
   {
     initials: "А.К.",
     country: "Пакистан",
+    flag: "🇵🇰",
     gpa: "3.6",
     wanted: "Машиностроение (магистратура)",
     result: "Harbin Institute of Technology, Харбин",
@@ -11,6 +12,7 @@ const cases = [
   {
     initials: "С.М.",
     country: "Марокко",
+    flag: "🇲🇦",
     gpa: "3.2",
     wanted: "Международный бизнес (бакалавриат)",
     result: "Zhejiang University of Technology, Ханчжоу",
@@ -20,6 +22,7 @@ const cases = [
   {
     initials: "Р.Д.",
     country: "Индонезия",
+    flag: "🇮🇩",
     gpa: "3.8",
     wanted: "Компьютерные науки (PhD)",
     result: "Huazhong University of Science and Technology, Ухань",
@@ -29,6 +32,7 @@ const cases = [
   {
     initials: "Н.Т.",
     country: "Бангладеш",
+    flag: "🇧🇩",
     gpa: "3.4",
     wanted: "Строительство (бакалавриат)",
     result: "China University of Petroleum (East China), Циндао",
@@ -38,6 +42,7 @@ const cases = [
   {
     initials: "К.А.",
     country: "Кыргызстан",
+    flag: "🇰🇬",
     gpa: "3.5",
     wanted: "Медицина (бакалавриат)",
     result: "Shandong University, Цзинань",
@@ -47,6 +52,7 @@ const cases = [
   {
     initials: "Л.Э.",
     country: "Шри-Ланка",
+    flag: "🇱🇰",
     gpa: "3.1",
     wanted: "Экономика (магистратура)",
     result: "Shanghai University, Шанхай",
@@ -78,7 +84,10 @@ export default function CaseStudies() {
                   <span className="bg-navy text-white text-sm font-bold w-10 h-10 rounded-full flex items-center justify-center">
                     {c.initials}
                   </span>
-                  <span className="text-text-muted text-xs">{c.country}</span>
+                  <span className="text-text-muted text-sm flex items-center gap-1.5">
+                    <span className="text-lg">{c.flag}</span>
+                    {c.country}
+                  </span>
                 </div>
 
                 <div className="space-y-2 text-sm">

@@ -2,6 +2,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#111827] py-12 md:py-16">
       <div className="max-w-[1100px] mx-auto px-4">
+        <div className="mb-10">
+          <img src="/logo-light.png" alt="MilGEC" className="h-12 w-auto mb-6" />
+        </div>
         <div className="grid md:grid-cols-4 gap-8 mb-10">
           {/* Контакты */}
           <div>
