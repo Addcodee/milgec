@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,21 +9,39 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
       <div className="max-w-[1100px] mx-auto px-4 flex items-center justify-between h-16">
-        <a href="#" className="text-white font-bold text-xl tracking-tight">
-          MilGEC
+        <a href="#">
+          <Image
+            src="/logo-light.png"
+            alt="MilGEC"
+            width={180}
+            height={60}
+            className="h-24 w-auto"
+          />
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#process" className="text-white/80 hover:text-white text-sm transition-colors">
+          <a
+            href="#process"
+            className="text-white/80 hover:text-white text-sm transition-colors"
+          >
             Как это работает
           </a>
-          <a href="#trust" className="text-white/80 hover:text-white text-sm transition-colors">
+          <a
+            href="#trust"
+            className="text-white/80 hover:text-white text-sm transition-colors"
+          >
             Университеты
           </a>
-          <a href="#pricing" className="text-white/80 hover:text-white text-sm transition-colors">
+          <a
+            href="#pricing"
+            className="text-white/80 hover:text-white text-sm transition-colors"
+          >
             Цены
           </a>
-          <a href="#cases" className="text-white/80 hover:text-white text-sm transition-colors">
+          <a
+            href="#cases"
+            className="text-white/80 hover:text-white text-sm transition-colors"
+          >
             Результаты
           </a>
           <a
@@ -38,7 +57,13 @@ export default function Header() {
           className="md:hidden text-white p-2"
           aria-label="Открыть меню"
         >
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             {menuOpen ? (
               <path d="M6 6l12 12M6 18L18 6" />
             ) : (
@@ -50,16 +75,32 @@ export default function Header() {
 
       {menuOpen && (
         <nav className="md:hidden bg-navy border-t border-white/10 px-4 py-4 flex flex-col gap-4">
-          <a href="#process" onClick={() => setMenuOpen(false)} className="text-white/80 hover:text-white text-sm">
+          <a
+            href="#process"
+            onClick={() => setMenuOpen(false)}
+            className="text-white/80 hover:text-white text-sm"
+          >
             Как это работает
           </a>
-          <a href="#trust" onClick={() => setMenuOpen(false)} className="text-white/80 hover:text-white text-sm">
+          <a
+            href="#trust"
+            onClick={() => setMenuOpen(false)}
+            className="text-white/80 hover:text-white text-sm"
+          >
             Университеты
           </a>
-          <a href="#pricing" onClick={() => setMenuOpen(false)} className="text-white/80 hover:text-white text-sm">
+          <a
+            href="#pricing"
+            onClick={() => setMenuOpen(false)}
+            className="text-white/80 hover:text-white text-sm"
+          >
             Цены
           </a>
-          <a href="#cases" onClick={() => setMenuOpen(false)} className="text-white/80 hover:text-white text-sm">
+          <a
+            href="#cases"
+            onClick={() => setMenuOpen(false)}
+            className="text-white/80 hover:text-white text-sm"
+          >
             Результаты
           </a>
           <a
