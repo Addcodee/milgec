@@ -1,15 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import StaggerGrid from "./StaggerGrid";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const cases = [
   {
     name: "Ахмед К.",
     from: "Пакистан",
     photo: "/students/ahmed.webp",
-    // ФОТО: парень ~22-25 лет, южноазиатская внешность.
-    // Поясной портрет на фоне зимнего кампуса или снежного города (Харбин — север Китая).
-    // В куртке, с рюкзаком или с ноутбуком. Формат: 600x400px минимум, горизонтальный, JPG.
     initials: "АК",
     university: "Harbin Institute of Technology",
     program: "Машиностроение · Магистратура",
@@ -20,9 +23,6 @@ const cases = [
     name: "Рахмат Д.",
     from: "Индонезия",
     photo: "/students/rahmat.jpg",
-    // ФОТО: парень ~24-28 лет, индонезийская внешность.
-    // В лаборатории или за компьютером (PhD, Computer Science). Может быть в очках.
-    // Формат: 600x400px минимум, горизонтальный, JPG.
     initials: "РД",
     university: "HUST",
     program: "Computer Science · PhD",
@@ -33,9 +33,6 @@ const cases = [
     name: "Кайрат А.",
     from: "Кыргызстан",
     photo: "/students/kayrat.jpg",
-    // ФОТО: парень ~19-22 лет, центральноазиатская внешность.
-    // В белом халате или на фоне медицинского корпуса / анатомической аудитории.
-    // Формат: 600x400px минимум, горизонтальный, JPG.
     initials: "КА",
     university: "Shandong University",
     program: "Медицина · Бакалавриат",
@@ -46,9 +43,6 @@ const cases = [
     name: "Саид М.",
     from: "Марокко",
     photo: "/students/said.jpg",
-    // ФОТО: парень ~19-22 лет, североафриканская / арабская внешность.
-    // Портрет на фоне современного университетского здания или в аудитории.
-    // Casual стиль, улыбается. Формат: 600x400px минимум, горизонтальный, JPG.
     initials: "СМ",
     university: "Zhejiang University of Technology",
     program: "Бизнес · Бакалавриат",
@@ -59,9 +53,6 @@ const cases = [
     name: "Насим Т.",
     from: "Бангладеш",
     photo: "/students/nasim.webp",
-    // ФОТО: парень ~19-22 лет, южноазиатская внешность.
-    // На территории кампуса, возможно с книгами или у входа в здание.
-    // Формат: 600x400px минимум, горизонтальный, JPG.
     initials: "НТ",
     university: "China University of Petroleum",
     program: "Инженерия · Бакалавриат",
@@ -72,9 +63,6 @@ const cases = [
     name: "Лакшан Э.",
     from: "Шри-Ланка",
     photo: "/students/lachshan.jpg",
-    // ФОТО: парень ~24-27 лет, шри-ланкийская внешность.
-    // В деловом/smart casual стиле, на фоне городского пейзажа Шанхая или библиотеки.
-    // Магистратура, экономика — более «взрослый» образ. Формат: 600x400px минимум, горизонтальный, JPG.
     initials: "ЛЭ",
     university: "Shanghai University",
     program: "Экономика · Магистратура",
@@ -106,10 +94,28 @@ function StudentPhoto({ src, initials, name }: { src: string; initials: string; 
 }
 
 export default function CaseStudies() {
+  const ref = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    if (!ref.current) return;
+
+    gsap.from("[data-cases-header]", {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    });
+  }, { scope: ref });
+
   return (
-    <section className="bg-bg-alt py-20 md:py-28" id="cases">
+    <section ref={ref} className="bg-bg-alt py-20 md:py-28" id="cases">
       <div className="max-w-300 mx-auto px-6">
-        <div className="text-center mb-14">
+        <div data-cases-header className="text-center mb-14">
           <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
             Результаты
           </p>
@@ -121,7 +127,7 @@ export default function CaseStudies() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <StaggerGrid className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.12}>
           {cases.map((c) => (
             <div
               key={c.name}
@@ -167,7 +173,7 @@ export default function CaseStudies() {
               </div>
             </div>
           ))}
-        </div>
+        </StaggerGrid>
       </div>
     </section>
   );

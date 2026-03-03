@@ -1,28 +1,60 @@
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import { useRef, ReactNode } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-export default function RevealOnScroll({ children, className = "" }: { children: ReactNode; className?: string }) {
+gsap.registerPlugin(ScrollTrigger);
+
+type Animation = "fade-up" | "fade-in" | "fade-left" | "fade-right" | "scale-in" | "blur-in";
+
+const animationProps: Record<Animation, gsap.TweenVars> = {
+  "fade-up": { y: 50, opacity: 0 },
+  "fade-in": { opacity: 0 },
+  "fade-left": { x: -50, opacity: 0 },
+  "fade-right": { x: 50, opacity: 0 },
+  "scale-in": { scale: 0.9, opacity: 0 },
+  "blur-in": { y: 30, opacity: 0, filter: "blur(8px)" },
+};
+
+interface Props {
+  children: ReactNode;
+  className?: string;
+  animation?: Animation;
+  delay?: number;
+  duration?: number;
+}
+
+export default function RevealOnScroll({
+  children,
+  className = "",
+  animation = "fade-up",
+  delay = 0,
+  duration = 0.9,
+}: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("is-visible");
-          observer.unobserve(el);
-        }
+  useGSAP(() => {
+    if (!ref.current) return;
+
+    const from = animationProps[animation];
+
+    gsap.from(ref.current, {
+      ...from,
+      duration,
+      delay,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top 88%",
+        toggleActions: "play none none none",
       },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    });
+  }, { scope: ref });
 
   return (
-    <div ref={ref} className={`reveal ${className}`}>
+    <div ref={ref} className={className}>
       {children}
     </div>
   );

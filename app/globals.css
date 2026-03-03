@@ -25,32 +25,26 @@ body {
   color: var(--color-text);
 }
 
-/* Карточка с подъёмом при hover */
+/* ─── Card hover ─── */
 .card-hover {
-  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(27, 42, 74, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(27, 42, 74, 0.1);
 }
 
-/* Scroll reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+/* ─── Emoji bounce on hover ─── */
+.emoji-bounce {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.emoji-bounce:hover,
+*:hover > .emoji-bounce {
+  transform: scale(1.2) rotate(-5deg);
 }
-.reveal:nth-child(2) { transition-delay: 0.08s; }
-.reveal:nth-child(3) { transition-delay: 0.16s; }
-.reveal:nth-child(4) { transition-delay: 0.24s; }
-.reveal:nth-child(5) { transition-delay: 0.32s; }
-.reveal:nth-child(6) { transition-delay: 0.40s; }
 
-/* Mesh gradient backgrounds */
+/* ─── Mesh gradient backgrounds ─── */
 .bg-mesh-light {
   background-color: #f7f8fc;
   background-image:
@@ -66,12 +60,14 @@ body {
     radial-gradient(at 70% 80%, rgba(212, 168, 67, 0.08) 0px, transparent 50%);
 }
 
+/* ─── Float animation ─── */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(var(--tw-rotate, 0deg)); }
   50% { transform: translateY(-12px) rotate(var(--tw-rotate, 0deg)); }
 }
 
+/* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .emoji-bounce { transition: none; }
   [class*="animate-[float"] { animation: none; }
 }

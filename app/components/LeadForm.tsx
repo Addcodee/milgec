@@ -1,6 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const countries = [
   "Россия", "Казахстан", "Кыргызстан", "Узбекистан", "Таджикистан",
@@ -34,6 +39,7 @@ const steps = [
 ];
 
 export default function LeadForm() {
+  const ref = useRef<HTMLElement>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [data, setData] = useState({
@@ -74,13 +80,30 @@ export default function LeadForm() {
     }
   };
 
+  useGSAP(() => {
+    if (!ref.current) return;
+
+    gsap.from("[data-form-content]", {
+      y: 50,
+      opacity: 0,
+      filter: "blur(8px)",
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+  }, { scope: ref });
+
   const inputClass = "w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/20 text-white text-lg placeholder:text-white/40 focus:outline-none focus:border-gold focus:bg-white/15 transition-all";
   const selectClass = "w-full px-5 py-4 min-h-[56px] appearance-none rounded-2xl bg-white/10 border border-white/20 text-white text-lg focus:outline-none focus:border-gold focus:bg-white/15 transition-all [&>option]:text-black";
 
   return (
-    <section className="bg-navy py-20 md:py-28 relative overflow-hidden" id="form">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-      <div className="max-w-[560px] mx-auto px-4 relative z-10">
+    <section ref={ref} className="bg-navy py-20 md:py-28 relative overflow-hidden" id="form">
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-gold/30 to-transparent" />
+      <div data-form-content className="max-w-140 mx-auto px-4 relative z-10">
         {submitted ? (
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-12 text-center border border-white/10">
             <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mx-auto mb-6">
@@ -109,7 +132,7 @@ export default function LeadForm() {
             {/* Progress bar */}
             <div className="w-full h-1 bg-white/10 rounded-full mb-10 overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-gold to-gold-hover rounded-full transition-all duration-500 ease-out"
+                className="h-full bg-linear-to-r from-gold to-gold-hover rounded-full transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -125,7 +148,6 @@ export default function LeadForm() {
                   onChange={(e) => setData({ ...data, name: e.target.value })}
                   onKeyDown={handleKeyDown}
                   placeholder="Иван Петров"
-                  autoFocus
                   className={inputClass}
                 />
               )}
@@ -136,7 +158,6 @@ export default function LeadForm() {
                   onChange={(e) => setData({ ...data, whatsapp: e.target.value })}
                   onKeyDown={handleKeyDown}
                   placeholder="+7 900 123 45 67"
-                  autoFocus
                   className={inputClass}
                 />
               )}
@@ -144,7 +165,6 @@ export default function LeadForm() {
                 <select
                   value={data.country}
                   onChange={(e) => setData({ ...data, country: e.target.value })}
-                  autoFocus
                   className={selectClass}
                 >
                   <option value="" disabled>Выберите страну</option>
@@ -157,7 +177,6 @@ export default function LeadForm() {
                 <select
                   value={data.program}
                   onChange={(e) => setData({ ...data, program: e.target.value })}
-                  autoFocus
                   className={selectClass}
                 >
                   <option value="" disabled>Выберите программу</option>
@@ -170,7 +189,6 @@ export default function LeadForm() {
                 <select
                   value={data.startDate}
                   onChange={(e) => setData({ ...data, startDate: e.target.value })}
-                  autoFocus
                   className={selectClass}
                 >
                   <option value="" disabled>Выберите дату</option>

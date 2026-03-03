@@ -1,3 +1,13 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import StaggerGrid from "./StaggerGrid";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const tiers = [
   {
     name: "Бесплатная оценка",
@@ -51,20 +61,38 @@ const tiers = [
 ];
 
 export default function Pricing() {
+  const ref = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    if (!ref.current) return;
+
+    gsap.from("[data-pricing-header]", {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    });
+  }, { scope: ref });
+
   return (
-    <section className="bg-bg-alt py-20 md:py-24" id="pricing">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="text-center mb-12">
+    <section ref={ref} className="bg-bg-alt py-20 md:py-24" id="pricing">
+      <div className="max-w-300 mx-auto px-6">
+        <div data-pricing-header className="text-center mb-12">
           <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Тарифы</p>
           <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em] mb-3">
             Прозрачные цены. Без сюрпризов.
           </h2>
-          <p className="text-text-muted text-sm max-w-[460px] mx-auto">
+          <p className="text-text-muted text-sm max-w-115 mx-auto">
             Выберите подходящий формат сотрудничества
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 items-start">
+        <StaggerGrid className="grid md:grid-cols-3 gap-4 items-start">
           {tiers.map((t) => (
             <div
               key={t.name}
@@ -124,9 +152,9 @@ export default function Pricing() {
               </a>
             </div>
           ))}
-        </div>
+        </StaggerGrid>
 
-        <p className="text-text-muted text-xs text-center mt-8 max-w-[600px] mx-auto">
+        <p className="text-text-muted text-xs text-center mt-8 max-w-150 mx-auto">
           В стоимость не входят: плата за обучение, проживание,
           транспорт, страховка и личные расходы — они оплачиваются напрямую.
         </p>

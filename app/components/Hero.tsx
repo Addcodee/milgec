@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const features = [
   { emoji: "🎓", label: "Подбор вуза" },
@@ -11,9 +13,40 @@ const features = [
 
 export default function Hero() {
   const [imgFailed, setImgFailed] = useState(false);
+  const container = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.from("[data-hero-badge]", { y: -20, opacity: 0, duration: 0.6 })
+      .from("[data-hero-headline]", { y: 40, opacity: 0, duration: 0.8 }, "-=0.3")
+      .from("[data-hero-sub]", { y: 30, opacity: 0, duration: 0.6 }, "-=0.4")
+      .from("[data-hero-pill]", {
+        y: 20,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.08,
+      }, "-=0.3")
+      .from("[data-hero-cta]", { y: 20, opacity: 0, scale: 0.95, duration: 0.6 }, "-=0.2")
+      .from("[data-hero-micro]", { opacity: 0, duration: 0.5 }, "-=0.2")
+      .from("[data-hero-image]", {
+        x: 60,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out",
+      }, 0.3)
+      .from("[data-hero-float]", {
+        y: 30,
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.7,
+        stagger: 0.15,
+        ease: "back.out(1.4)",
+      }, "-=0.5");
+  }, { scope: container });
 
   return (
-    <section className="relative bg-navy overflow-hidden" id="hero">
+    <section ref={container} className="relative bg-navy overflow-hidden" id="hero">
       {/* Subtle background glow */}
       <div className="absolute top-0 right-0 w-150 h-150 rounded-full bg-gold/5 blur-[120px] pointer-events-none" />
 
@@ -23,7 +56,7 @@ export default function Hero() {
           {/* Left — text */}
           <div className="max-w-xl">
             {/* Small label */}
-            <div className="inline-flex items-center gap-2 bg-white/6 border border-white/10 rounded-full px-4 py-1.5 mb-8">
+            <div data-hero-badge className="inline-flex items-center gap-2 bg-white/6 border border-white/10 rounded-full px-4 py-1.5 mb-8">
               <span className="w-1.5 h-1.5 bg-gold rounded-full animate-pulse" />
               <span className="text-white/60 text-xs font-medium">
                 С 2020 года · 60+ стран
@@ -31,14 +64,14 @@ export default function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-[clamp(2.25rem,5.5vw,4rem)] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-6">
+            <h1 data-hero-headline className="text-[clamp(2.25rem,5.5vw,4rem)] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-6">
               Поступи в Китай
               <br />
               <span className="text-gold">по стипендии</span>
             </h1>
 
             {/* Subtext */}
-            <p className="text-white/50 text-lg leading-relaxed mb-8 max-w-md">
+            <p data-hero-sub className="text-white/50 text-lg leading-relaxed mb-8 max-w-md">
               Берём на себя всё — от подбора вуза до встречи в аэропорту.
               90% наших студентов получают финансирование.
             </p>
@@ -48,6 +81,7 @@ export default function Hero() {
               {features.map((f) => (
                 <div
                   key={f.label}
+                  data-hero-pill
                   className="flex items-center gap-2 bg-white/6 border border-white/10 rounded-full px-4 py-2"
                 >
                   <span className="text-lg">{f.emoji}</span>
@@ -58,6 +92,7 @@ export default function Hero() {
 
             {/* CTA */}
             <a
+              data-hero-cta
               href="#form"
               className="inline-flex items-center gap-2 bg-gold hover:bg-gold-hover text-white font-bold text-base px-8 py-4 rounded-xl transition-all hover:shadow-[0_8px_30px_rgba(212,168,67,0.35)] hover:-translate-y-0.5"
             >
@@ -68,13 +103,13 @@ export default function Hero() {
             </a>
 
             {/* Micro trust */}
-            <p className="text-white/25 text-xs mt-5">
+            <p data-hero-micro className="text-white/25 text-xs mt-5">
               Бесплатно · Без обязательств · Ответ за 24 часа
             </p>
           </div>
 
           {/* Right — image */}
-          <div className="relative hidden lg:block">
+          <div className="relative hidden lg:block" data-hero-image>
             <div className="relative rounded-3xl overflow-hidden aspect-4/5 max-w-md ml-auto">
               {!imgFailed ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -94,7 +129,7 @@ export default function Hero() {
               )}
 
               {/* Floating card — scholarship */}
-              <div className="absolute bottom-6 left-6 right-6 bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/15">
+              <div data-hero-float className="absolute bottom-6 left-6 right-6 bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/15">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center shrink-0">
                     <img src="/3d-icons/graduation-cap.svg" alt="" className="w-8 h-8" />
@@ -108,10 +143,10 @@ export default function Hero() {
             </div>
 
             {/* Floating badges around the image */}
-            <div className="absolute -top-3 -right-3 bg-gold text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-lg flex items-center gap-1.5">
+            <div data-hero-float className="absolute -top-3 -right-3 bg-gold text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-lg flex items-center gap-1.5">
               <span className="text-base">🏆</span> 90% стипендий
             </div>
-            <div className="absolute top-1/3 -left-4 bg-white shadow-lg rounded-2xl px-4 py-3 flex items-center gap-2.5 animate-[float_6s_ease-in-out_infinite]">
+            <div data-hero-float className="absolute top-1/3 -left-4 bg-white shadow-lg rounded-2xl px-4 py-3 flex items-center gap-2.5 animate-[float_6s_ease-in-out_infinite]">
               <span className="text-2xl">📋</span>
               <div>
                 <p className="text-navy font-bold text-xs">6 000+</p>

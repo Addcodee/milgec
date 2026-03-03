@@ -10,37 +10,23 @@ import Filter from "./components/Filter";
 import LeadForm from "./components/LeadForm";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
-import RevealOnScroll from "./components/RevealOnScroll";
+import GSAPProvider from "./components/GSAPProvider";
 
 export default function Home() {
   return (
-    <>
+    <GSAPProvider>
       <Header />
       <Hero />
       <TrustStrip />
-      <RevealOnScroll>
-        <PainPoints />
-      </RevealOnScroll>
-      <RevealOnScroll>
-        <Process />
-      </RevealOnScroll>
-      <RevealOnScroll>
-        <Trust />
-      </RevealOnScroll>
-      <RevealOnScroll>
-        <Pricing />
-      </RevealOnScroll>
-      <RevealOnScroll>
-        <CaseStudies />
-      </RevealOnScroll>
-      <RevealOnScroll>
-        <Filter />
-      </RevealOnScroll>
-      <RevealOnScroll>
-        <LeadForm />
-      </RevealOnScroll>
+      <PainPoints />
+      <Process />
+      <Trust />
+      <Pricing />
+      <CaseStudies />
+      <Filter />
+      <LeadForm />
       <Footer />
       <WhatsAppButton />
-    </>
+    </GSAPProvider>
   );
 }

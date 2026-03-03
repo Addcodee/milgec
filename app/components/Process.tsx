@@ -1,3 +1,13 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import StaggerGrid from "./StaggerGrid";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const steps = [
   {
     num: "01",
@@ -44,10 +54,28 @@ const steps = [
 ];
 
 export default function Process() {
+  const ref = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    if (!ref.current) return;
+
+    gsap.from("[data-process-header]", {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    });
+  }, { scope: ref });
+
   return (
-    <section className="bg-white py-20 md:py-24" id="process">
+    <section ref={ref} className="bg-white py-20 md:py-24" id="process">
       <div className="max-w-300 mx-auto px-6">
-        <div className="text-center mb-14">
+        <div data-process-header className="text-center mb-14">
           <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Процесс</p>
           <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em] mb-3">
             Ваш путь в китайский университет
@@ -55,27 +83,27 @@ export default function Process() {
           <p className="text-text-muted text-sm">7 понятных шагов. Без догадок.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {steps.slice(0, 4).map((s) => (
             <div key={s.num} className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden">
-              <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/[0.04] leading-none select-none">{s.num}</span>
-              <div className="text-3xl mb-5">{s.emoji}</div>
+              <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">{s.num}</span>
+              <div className="emoji-bounce text-3xl mb-5">{s.emoji}</div>
               <h3 className="font-bold text-navy text-base mb-2 group-hover:text-gold transition-colors">{s.title}</h3>
               <p className="text-text-secondary text-sm leading-relaxed">{s.desc}</p>
             </div>
           ))}
-        </div>
+        </StaggerGrid>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
           {steps.slice(4).map((s) => (
             <div key={s.num} className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden">
-              <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/[0.04] leading-none select-none">{s.num}</span>
-              <div className="text-3xl mb-5">{s.emoji}</div>
+              <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">{s.num}</span>
+              <div className="emoji-bounce text-3xl mb-5">{s.emoji}</div>
               <h3 className="font-bold text-navy text-base mb-2 group-hover:text-gold transition-colors">{s.title}</h3>
               <p className="text-text-secondary text-sm leading-relaxed">{s.desc}</p>
             </div>
           ))}
-        </div>
+        </StaggerGrid>
       </div>
     </section>
   );

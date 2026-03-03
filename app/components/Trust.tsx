@@ -1,3 +1,12 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const universities = [
   { name: "China University of Petroleum", logo: "/cup.svg" },
   { name: "Huazhong University of Science and Technology", logo: "/hust.png" },
@@ -10,15 +19,50 @@ const universities = [
 ];
 
 export default function Trust() {
+  const ref = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    if (!ref.current) return;
+
+    // Header reveal
+    gsap.from("[data-trust-header]", {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    // Logo cards stagger
+    const cards = ref.current.querySelectorAll("[data-trust-card]");
+    gsap.from(cards, {
+      y: 30,
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.6,
+      stagger: 0.08,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: cards[0],
+        start: "top 88%",
+        toggleActions: "play none none none",
+      },
+    });
+  }, { scope: ref });
+
   return (
-    <section className="bg-mesh-light py-20 md:py-24" id="trust">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="text-center mb-12">
+    <section ref={ref} className="bg-mesh-light py-20 md:py-24" id="trust">
+      <div className="max-w-300 mx-auto px-6">
+        <div data-trust-header className="text-center mb-12">
           <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Партнёры</p>
           <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em] mb-3">
             Почему 6 000+ студентов доверяют MilGEC
           </h2>
-          <p className="text-text-muted text-sm max-w-[500px] mx-auto">
+          <p className="text-text-muted text-sm max-w-125 mx-auto">
             С 2020 года. Штаб-квартира — Циндао, Китай. Филиалы в 7 странах.
             Официальный договор каждому клиенту.
           </p>
@@ -28,6 +72,7 @@ export default function Trust() {
           {universities.map((u) => (
             <div
               key={u.name}
+              data-trust-card
               className="card-hover bg-white rounded-2xl px-5 py-7 flex flex-col items-center gap-4 border border-border/50"
             >
               <img
