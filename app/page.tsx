@@ -10,6 +10,7 @@ import Filter from "./components/Filter";
 import LeadForm from "./components/LeadForm";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import RevealOnScroll from "./components/RevealOnScroll";
 
 export default function Home() {
   return (
@@ -17,13 +18,27 @@ export default function Home() {
       <Header />
       <Hero />
       <TrustStrip />
-      <PainPoints />
-      <Process />
-      <Trust />
-      <Pricing />
-      <CaseStudies />
-      <Filter />
-      <LeadForm />
+      <RevealOnScroll>
+        <PainPoints />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <Process />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <Trust />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <Pricing />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <CaseStudies />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <Filter />
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <LeadForm />
+      </RevealOnScroll>
       <Footer />
       <WhatsAppButton />
     </>

@@ -2,17 +2,18 @@
 
 @theme inline {
   --color-navy: #1B2A4A;
+  --color-navy-light: #243556;
   --color-gold: #D4A843;
   --color-gold-hover: #B8922E;
   --color-bg: #FFFFFF;
-  --color-bg-alt: #F8F9FB;
-  --color-text: #2D2D2D;
-  --color-text-secondary: #666666;
-  --color-text-muted: #999999;
-  --color-success: #27AE60;
-  --color-warning: #C0392B;
+  --color-bg-alt: #F7F8FC;
+  --color-text: #1a1a2e;
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #94a3b8;
+  --color-success: #22c55e;
+  --color-warning: #ef4444;
   --color-whatsapp: #25D366;
-  --color-border: #E8E8E8;
+  --color-border: #e5e7eb;
 }
 
 html {
@@ -22,4 +23,55 @@ html {
 body {
   background: var(--color-bg);
   color: var(--color-text);
+}
+
+/* Карточка с подъёмом при hover */
+.card-hover {
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(27, 42, 74, 0.08);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal:nth-child(2) { transition-delay: 0.08s; }
+.reveal:nth-child(3) { transition-delay: 0.16s; }
+.reveal:nth-child(4) { transition-delay: 0.24s; }
+.reveal:nth-child(5) { transition-delay: 0.32s; }
+.reveal:nth-child(6) { transition-delay: 0.40s; }
+
+/* Mesh gradient backgrounds */
+.bg-mesh-light {
+  background-color: #f7f8fc;
+  background-image:
+    radial-gradient(at 20% 30%, rgba(212, 168, 67, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(27, 42, 74, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(212, 168, 67, 0.05) 0px, transparent 50%);
+}
+
+.bg-mesh-dark {
+  background-color: #1B2A4A;
+  background-image:
+    radial-gradient(at 30% 20%, rgba(212, 168, 67, 0.12) 0px, transparent 50%),
+    radial-gradient(at 70% 80%, rgba(212, 168, 67, 0.08) 0px, transparent 50%);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--tw-rotate, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--tw-rotate, 0deg)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  [class*="animate-[float"] { animation: none; }
 }

@@ -1,12 +1,12 @@
 const tiers = [
   {
     name: "Бесплатная оценка",
+    emoji: "🔍",
     price: "Бесплатно",
-    badge: "Начните здесь",
     best: "Хочу понять свои варианты",
     features: [
       "Анализ профиля",
-      "Рекомендации по университетам и программам",
+      "Рекомендации по университетам",
       "Оценка шансов на стипендию",
       "Персональная разбивка стоимости",
     ],
@@ -16,12 +16,13 @@ const tiers = [
   },
   {
     name: "Пакет «Поступление»",
+    emoji: "📋",
     price: "$—",
     best: "Я точно хочу учиться в Китае",
     features: [
       "Всё из бесплатной оценки",
-      "Полная подготовка и оформление документов",
-      "Подача заявок в несколько университетов",
+      "Подготовка и оформление документов",
+      "Подача заявок в несколько вузов",
       "Оптимизация заявки на стипендию",
       "Сопровождение до зачисления",
     ],
@@ -31,14 +32,15 @@ const tiers = [
   },
   {
     name: "Полный пакет",
+    emoji: "🚀",
     price: "$—",
     best: "Сделайте всё за меня",
     features: [
       "Всё из пакета «Поступление»",
       "Помощь с оформлением визы",
-      "Подготовка к отъезду и ориентация",
+      "Подготовка к отъезду",
       "Встреча в аэропорту в Китае",
-      "Помощь с регистрацией в кампусе",
+      "Регистрация в кампусе",
       "Поддержка 24/7 в первый семестр",
       "Пакет приветствия",
     ],
@@ -50,44 +52,59 @@ const tiers = [
 
 export default function Pricing() {
   return (
-    <section className="bg-bg-alt py-16 md:py-20" id="pricing">
-      <div className="max-w-[1100px] mx-auto px-4">
-        <h2 className="text-3xl md:text-[32px] font-bold text-navy text-center mb-12">
-          Прозрачные цены. Без сюрпризов.
-        </h2>
+    <section className="bg-bg-alt py-20 md:py-24" id="pricing">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="text-center mb-12">
+          <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Тарифы</p>
+          <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em] mb-3">
+            Прозрачные цены. Без сюрпризов.
+          </h2>
+          <p className="text-text-muted text-sm max-w-[460px] mx-auto">
+            Выберите подходящий формат сотрудничества
+          </p>
+        </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 items-start">
           {tiers.map((t) => (
             <div
               key={t.name}
-              className={`bg-white rounded-xl p-7 flex flex-col ${
+              className={`card-hover rounded-2xl p-7 flex flex-col ${
                 t.featured
-                  ? "border-2 border-gold shadow-[0_4px_20px_rgba(212,168,67,0.15)]"
-                  : "border border-border"
+                  ? "bg-navy text-white md:-translate-y-2 shadow-[0_12px_40px_rgba(27,42,74,0.25)]"
+                  : "bg-white border border-border/60 shadow-[0_2px_8px_rgba(27,42,74,0.06)]"
               }`}
             >
+              {/* Emoji */}
+              <div className="text-4xl mb-4">{t.emoji}</div>
+
+              {/* Badge */}
               {t.featured && (
-                <div className="text-xs text-gold font-bold uppercase tracking-wider mb-2">
+                <div className="inline-flex self-start bg-gold/20 text-gold text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-lg mb-4">
                   Самый популярный
                 </div>
               )}
               {t.free && (
-                <div className="text-xs text-success font-bold uppercase tracking-wider mb-2">
-                  {t.badge}
+                <div className="inline-flex self-start bg-success/10 text-success text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-lg mb-4">
+                  Начните здесь
                 </div>
               )}
-              <h3 className="text-xl font-bold text-navy mb-1">{t.name}</h3>
-              <div className={`text-3xl font-extrabold mb-2 ${t.free ? "text-success" : "text-navy"}`}>
+
+              <h3 className={`text-[17px] font-bold mb-1 ${t.featured ? "text-white" : "text-navy"}`}>
+                {t.name}
+              </h3>
+              <div className={`text-2xl font-extrabold mb-1 ${t.free ? "text-success" : t.featured ? "text-white" : "text-navy"}`}>
                 {t.price}
               </div>
-              <p className="text-text-muted text-sm mb-6">
+              <p className={`text-[13px] mb-6 ${t.featured ? "text-white/50" : "text-text-muted"}`}>
                 &laquo;{t.best}&raquo;
               </p>
 
-              <ul className="flex flex-col gap-3 mb-8 flex-grow">
+              <ul className="flex flex-col gap-2.5 mb-8 flex-grow">
                 {t.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-text-secondary">
-                    <span className="text-gold mt-0.5">&#10003;</span>
+                  <li key={f} className={`flex items-start gap-2.5 text-[13px] ${t.featured ? "text-white/70" : "text-text-secondary"}`}>
+                    <span className={`w-4.5 h-4.5 rounded-full text-[10px] flex items-center justify-center shrink-0 mt-0.5 ${
+                      t.featured ? "bg-gold/20 text-gold" : "bg-gold/10 text-gold"
+                    }`}>&#10003;</span>
                     {f}
                   </li>
                 ))}
@@ -95,12 +112,12 @@ export default function Pricing() {
 
               <a
                 href="#form"
-                className={`block text-center font-bold text-sm uppercase tracking-wider py-3 rounded-lg transition-colors ${
+                className={`block text-center font-semibold text-sm py-3 rounded-xl transition-all ${
                   t.featured
-                    ? "bg-gold hover:bg-gold-hover text-white"
+                    ? "bg-gold hover:bg-gold-hover text-white hover:shadow-[0_4px_20px_rgba(212,168,67,0.35)]"
                     : t.free
-                      ? "bg-success hover:bg-success/90 text-white"
-                      : "border-2 border-navy text-navy hover:bg-navy hover:text-white"
+                      ? "bg-success hover:bg-success/90 text-white hover:shadow-[0_4px_20px_rgba(34,197,94,0.25)]"
+                      : "border border-navy/20 text-navy hover:bg-navy hover:text-white"
                 }`}
               >
                 {t.cta}
@@ -109,10 +126,9 @@ export default function Pricing() {
           ))}
         </div>
 
-        <p className="text-text-muted text-xs text-center mt-8 max-w-[700px] mx-auto">
-          В стоимость не входят: плата за обучение в университете, проживание,
-          транспортные расходы, медицинская страховка и личные расходы. Они
-          оплачиваются напрямую университету или поставщикам услуг.
+        <p className="text-text-muted text-xs text-center mt-8 max-w-[600px] mx-auto">
+          В стоимость не входят: плата за обучение, проживание,
+          транспорт, страховка и личные расходы — они оплачиваются напрямую.
         </p>
       </div>
     </section>

@@ -25,114 +25,192 @@ const startDates = [
   "Пока не определился",
 ];
 
-export default function LeadForm() {
-  const [submitted, setSubmitted] = useState(false);
+const steps = [
+  { id: "name", label: "Как вас зовут?", subtitle: "Имя и фамилия" },
+  { id: "whatsapp", label: "Ваш WhatsApp", subtitle: "Мы отправим результат сюда" },
+  { id: "country", label: "Страна гражданства", subtitle: "Откуда вы?" },
+  { id: "program", label: "Уровень программы", subtitle: "Что хотите изучать?" },
+  { id: "startDate", label: "Когда планируете начать?", subtitle: "Примерные сроки" },
+];
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // TODO: подключить к email/CRM/webhook
-    setSubmitted(true);
+export default function LeadForm() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
+  const [data, setData] = useState({
+    name: "",
+    whatsapp: "",
+    country: "",
+    program: "",
+    startDate: "",
+  });
+
+  const step = steps[currentStep];
+  const totalSteps = steps.length;
+  const progress = ((currentStep) / totalSteps) * 100;
+
+  const canProceed = () => {
+    const key = step.id as keyof typeof data;
+    return data[key].trim() !== "";
   };
 
-  return (
-    <section className="bg-navy py-16 md:py-20" id="form">
-      <div className="max-w-[600px] mx-auto px-4">
-        <h2 className="text-3xl md:text-[32px] font-bold text-white text-center mb-3">
-          Получите бесплатный расчёт стоимости и шансов на стипендию
-        </h2>
-        <p className="text-white/70 text-center mb-10">
-          Заполните 5 полей. Мы отправим персональную оценку в WhatsApp в течение 24 часов.
-        </p>
+  const handleNext = () => {
+    if (!canProceed()) return;
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      // TODO: подключить к email/CRM/webhook
+      setSubmitted(true);
+    }
+  };
 
+  const handleBack = () => {
+    if (currentStep > 0) setCurrentStep(currentStep - 1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleNext();
+    }
+  };
+
+  const inputClass = "w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/20 text-white text-lg placeholder:text-white/40 focus:outline-none focus:border-gold focus:bg-white/15 transition-all";
+  const selectClass = "w-full px-5 py-4 min-h-[56px] appearance-none rounded-2xl bg-white/10 border border-white/20 text-white text-lg focus:outline-none focus:border-gold focus:bg-white/15 transition-all [&>option]:text-black";
+
+  return (
+    <section className="bg-navy py-20 md:py-28 relative overflow-hidden" id="form">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+      <div className="max-w-[560px] mx-auto px-4 relative z-10">
         {submitted ? (
-          <div className="bg-white/10 rounded-xl p-10 text-center">
-            <div className="text-gold text-5xl mb-4">&#10003;</div>
-            <h3 className="text-white text-xl font-bold mb-2">
-              Спасибо!
+          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-12 text-center border border-white/10">
+            <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mx-auto mb-6">
+              <span className="text-gold text-3xl">&#10003;</span>
+            </div>
+            <h3 className="text-white text-2xl font-bold mb-3">
+              Спасибо, {data.name.split(" ")[0]}!
             </h3>
-            <p className="text-white/70">
+            <p className="text-white/70 leading-relaxed">
               Мы отправим персональный расчёт стоимости и оценку шансов на стипендию
               в ваш WhatsApp в течение 24 часов.
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input
-              type="text"
-              name="name"
-              required
-              placeholder="Ваше полное имя"
-              className="w-full px-4 py-3.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-gold transition-colors"
-            />
-            <input
-              type="tel"
-              name="whatsapp"
-              required
-              placeholder="+7 900 123 45 67 (WhatsApp)"
-              className="w-full px-4 py-3.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-gold transition-colors"
-            />
-            <select
-              name="country"
-              required
-              defaultValue=""
-              className="w-full px-4 py-3.5 min-h-[48px] appearance-none rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
-            >
-              <option value="" disabled>
-                Страна гражданства
-              </option>
-              {countries.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-            <select
-              name="program"
-              required
-              defaultValue=""
-              className="w-full px-4 py-3.5 min-h-[48px] appearance-none rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
-            >
-              <option value="" disabled>
-                Уровень программы
-              </option>
-              {programs.map((p) => (
-                <option key={p} value={p}>
-                  {p}
-                </option>
-              ))}
-            </select>
-            <select
-              name="startDate"
-              required
-              defaultValue=""
-              className="w-full px-4 py-3.5 min-h-[48px] appearance-none rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-gold transition-colors [&>option]:text-black"
-            >
-              <option value="" disabled>
-                Когда планируете начать?
-              </option>
-              {startDates.map((d) => (
-                <option key={d} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
-
-            <button
-              type="submit"
-              className="w-full bg-gold hover:bg-gold-hover text-white font-bold text-base uppercase tracking-wider py-4 rounded-lg transition-colors mt-2"
-            >
-              Получить бесплатный расчёт
-            </button>
-
-            <div className="flex flex-col items-center gap-1 mt-2">
-              <p className="text-white/50 text-xs">
-                Без спама. Без обязательств. Только честные рекомендации.
-              </p>
-              <p className="text-white/50 text-xs">
-                6 000+ студентов уже доверили нам своё будущее.
+          <>
+            <div className="text-center mb-10">
+              <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Бесплатная оценка</p>
+              <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-white tracking-[-0.02em] mb-3">
+                Узнайте свои шансы
+              </h2>
+              <p className="text-white/40 text-sm">
+                Шаг {currentStep + 1} из {totalSteps}
               </p>
             </div>
-          </form>
+
+            {/* Progress bar */}
+            <div className="w-full h-1 bg-white/10 rounded-full mb-10 overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-gold to-gold-hover rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-white/10">
+              <h3 className="text-white text-xl font-bold mb-1">{step.label}</h3>
+              <p className="text-white/50 text-sm mb-6">{step.subtitle}</p>
+
+              {step.id === "name" && (
+                <input
+                  type="text"
+                  value={data.name}
+                  onChange={(e) => setData({ ...data, name: e.target.value })}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Иван Петров"
+                  autoFocus
+                  className={inputClass}
+                />
+              )}
+              {step.id === "whatsapp" && (
+                <input
+                  type="tel"
+                  value={data.whatsapp}
+                  onChange={(e) => setData({ ...data, whatsapp: e.target.value })}
+                  onKeyDown={handleKeyDown}
+                  placeholder="+7 900 123 45 67"
+                  autoFocus
+                  className={inputClass}
+                />
+              )}
+              {step.id === "country" && (
+                <select
+                  value={data.country}
+                  onChange={(e) => setData({ ...data, country: e.target.value })}
+                  autoFocus
+                  className={selectClass}
+                >
+                  <option value="" disabled>Выберите страну</option>
+                  {countries.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              )}
+              {step.id === "program" && (
+                <select
+                  value={data.program}
+                  onChange={(e) => setData({ ...data, program: e.target.value })}
+                  autoFocus
+                  className={selectClass}
+                >
+                  <option value="" disabled>Выберите программу</option>
+                  {programs.map((p) => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+              )}
+              {step.id === "startDate" && (
+                <select
+                  value={data.startDate}
+                  onChange={(e) => setData({ ...data, startDate: e.target.value })}
+                  autoFocus
+                  className={selectClass}
+                >
+                  <option value="" disabled>Выберите дату</option>
+                  {startDates.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+              )}
+
+              <div className="flex items-center gap-3 mt-8">
+                {currentStep > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className="px-6 py-3.5 rounded-xl border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-all text-sm font-semibold"
+                  >
+                    Назад
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  disabled={!canProceed()}
+                  className={`flex-1 py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider transition-all ${
+                    canProceed()
+                      ? "bg-gold hover:bg-gold-hover text-white hover:shadow-[0_8px_30px_rgba(212,168,67,0.3)]"
+                      : "bg-white/10 text-white/30 cursor-not-allowed"
+                  }`}
+                >
+                  {currentStep === totalSteps - 1 ? "Получить бесплатный расчёт" : "Далее"}
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-1 mt-6">
+              <p className="text-white/40 text-xs">
+                Без спама. Без обязательств. Только честные рекомендации.
+              </p>
+            </div>
+          </>
         )}
       </div>
     </section>

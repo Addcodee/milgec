@@ -11,35 +11,38 @@ const universities = [
 
 export default function Trust() {
   return (
-    <section className="bg-bg-alt py-16 md:py-20" id="trust">
-      <div className="max-w-[1100px] mx-auto px-4">
-        <h2 className="text-3xl md:text-[32px] font-bold text-navy text-center mb-4">
-          Почему 6 000+ студентов доверяют MilGEC
-        </h2>
-        <p className="text-text-secondary text-center text-sm mb-12 max-w-[600px] mx-auto">
-          С 2020 года. Штаб-квартира — Циндао, Китай. Филиалы в 7 странах.
-          Официальный договор каждому клиенту.
-        </p>
+    <section className="bg-mesh-light py-20 md:py-24" id="trust">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="text-center mb-12">
+          <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Партнёры</p>
+          <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em] mb-3">
+            Почему 6 000+ студентов доверяют MilGEC
+          </h2>
+          <p className="text-text-muted text-sm max-w-[500px] mx-auto">
+            С 2020 года. Штаб-квартира — Циндао, Китай. Филиалы в 7 странах.
+            Официальный договор каждому клиенту.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {universities.map((u) => (
             <div
               key={u.name}
-              className="bg-white rounded-lg px-4 py-5 flex flex-col items-center gap-3 border border-border"
+              className="card-hover bg-white rounded-2xl px-5 py-7 flex flex-col items-center gap-4 border border-border/50"
             >
               <img
                 src={u.logo}
                 alt={u.name}
                 className="h-14 w-auto object-contain"
               />
-              <p className="text-navy text-xs font-medium text-center leading-snug">
+              <p className="text-navy/70 text-[11px] font-medium text-center leading-snug">
                 {u.name}
               </p>
             </div>
           ))}
         </div>
 
-        <p className="text-text-muted text-sm text-center">
+        <p className="text-text-muted text-xs text-center">
           + ещё 200 университетов-партнёров во всех провинциях Китая
         </p>
       </div>
