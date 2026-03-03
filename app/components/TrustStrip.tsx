@@ -64,9 +64,9 @@ export default function TrustStrip() {
   return (
     <section ref={ref} className="bg-navy border-t-2 border-gold/60" id="stats">
       <div className="max-w-300 mx-auto px-6 py-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((s) => (
-            <div key={s.label} data-stat-block className="text-center px-6 py-2">
+            <div key={s.label} data-stat-block className="text-center py-2">
               <div className="text-gold text-3xl md:text-4xl font-extrabold leading-tight">
                 <span data-counter={s.target} data-format={s.format ? "true" : "false"}>
                   0

@@ -113,16 +113,18 @@ export default function CaseStudies() {
   }, { scope: ref });
 
   return (
-    <section ref={ref} className="bg-bg-alt py-20 md:py-28" id="cases">
+    <section ref={ref} className="bg-white py-20 md:py-28" id="cases">
       <div className="max-w-300 mx-auto px-6">
-        <div data-cases-header className="text-center mb-14">
-          <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
-            Результаты
-          </p>
-          <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold text-text tracking-[-0.03em] mb-3">
-            Реальные истории поступления
-          </h2>
-          <p className="text-text-muted text-sm max-w-lg mx-auto">
+        <div data-cases-header className="md:flex md:items-end md:justify-between mb-14">
+          <div>
+            <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
+              Результаты
+            </p>
+            <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold text-text tracking-[-0.03em]">
+              Реальные истории поступления
+            </h2>
+          </div>
+          <p className="text-text-muted text-sm mt-3 md:mt-0 md:max-w-xs md:text-right">
             Не отзывы — факты. Каждый кейс подтверждён документами.
           </p>
         </div>
@@ -131,20 +133,15 @@ export default function CaseStudies() {
           {cases.map((c) => (
             <div
               key={c.name}
-              className="group relative rounded-2xl overflow-hidden bg-white border border-border card-hover"
+              className="group relative rounded-2xl overflow-hidden bg-bg-alt border border-border card-hover"
             >
-              {/* Student photo */}
               <div className="relative h-52 overflow-hidden bg-bg-alt">
                 <StudentPhoto src={c.photo} initials={c.initials} name={c.name} />
-                {/* Scholarship badge */}
                 <div className="absolute top-3 right-3 bg-gold text-white text-[11px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full shadow-md">
                   {c.scholarship}
                 </div>
               </div>
-
-              {/* Content */}
               <div className="p-5">
-                {/* Name & origin */}
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-text font-bold text-base">{c.name}</h3>
@@ -157,8 +154,6 @@ export default function CaseStudies() {
                     {c.timeline}
                   </div>
                 </div>
-
-                {/* Result */}
                 <div className="border-t border-border pt-4">
                   <div className="flex items-start gap-2">
                     <svg className="w-4 h-4 text-gold mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

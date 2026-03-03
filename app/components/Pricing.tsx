@@ -127,7 +127,7 @@ export default function Pricing() {
                 &laquo;{t.best}&raquo;
               </p>
 
-              <ul className="flex flex-col gap-2.5 mb-8 flex-grow">
+              <ul className="flex flex-col gap-2.5 mb-8 grow">
                 {t.features.map((f) => (
                   <li key={f} className={`flex items-start gap-2.5 text-[13px] ${t.featured ? "text-white/70" : "text-text-secondary"}`}>
                     <span className={`w-4.5 h-4.5 rounded-full text-[10px] flex items-center justify-center shrink-0 mt-0.5 ${

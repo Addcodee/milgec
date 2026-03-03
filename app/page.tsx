@@ -2,11 +2,12 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import TrustStrip from "./components/TrustStrip";
 import PainPoints from "./components/PainPoints";
-import Process from "./components/Process";
+import MiniCTA from "./components/MiniCTA";
 import Trust from "./components/Trust";
+import Process from "./components/Process";
 import CaseStudies from "./components/CaseStudies";
-import Pricing from "./components/Pricing";
 import Filter from "./components/Filter";
+import Pricing from "./components/Pricing";
 import LeadForm from "./components/LeadForm";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -19,11 +20,13 @@ export default function Home() {
       <Hero />
       <TrustStrip />
       <PainPoints />
-      <Process />
+      <MiniCTA text="Узнайте свои шансы бесплатно" />
       <Trust />
-      <Pricing />
+      <Process />
       <CaseStudies />
+      <MiniCTA text="Получить бесплатную оценку" />
       <Filter />
+      <Pricing />
       <LeadForm />
       <Footer />
       <WhatsAppButton />

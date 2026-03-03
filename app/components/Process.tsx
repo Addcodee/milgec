@@ -4,7 +4,6 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import StaggerGrid from "./StaggerGrid";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,29 +53,79 @@ const steps = [
 ];
 
 export default function Process() {
-  const ref = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      if (!ref.current) return;
+      if (!sectionRef.current || !trackRef.current || !wrapperRef.current) return;
 
+      // Header reveal
       gsap.from("[data-process-header]", {
         y: 40,
         opacity: 0,
         duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: ref.current,
+          trigger: sectionRef.current,
           start: "top 85%",
           toggleActions: "play none none none",
         },
       });
+
+      const mm = gsap.matchMedia();
+
+      // Desktop: horizontal scroll
+      mm.add("(min-width: 768px)", () => {
+        const track = trackRef.current!;
+        const wrapper = wrapperRef.current!;
+
+        // track is wider than its wrapper — scroll the difference
+        const totalScroll = track.scrollWidth - wrapper.offsetWidth;
+
+        if (totalScroll <= 0) return;
+
+        gsap.to(track, {
+          x: -totalScroll,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            // 1.5x multiplier = slower, more comfortable scroll pace
+            end: () => `+=${totalScroll * 1.5}`,
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+      });
+
+      // Mobile: stagger reveal (no horizontal scroll)
+      mm.add("(max-width: 767px)", () => {
+        const cards = sectionRef.current!.querySelectorAll<HTMLElement>("[data-step-card]");
+        gsap.set(cards, { y: 30, opacity: 0 });
+        gsap.to(cards, {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: cards[0],
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        });
+      });
+
+      return () => mm.revert();
     },
-    { scope: ref },
+    { scope: sectionRef },
   );
 
   return (
-    <section ref={ref} className="bg-white py-20 md:py-24" id="process">
+    <section ref={sectionRef} className="bg-white py-20 md:py-24" id="process">
       <div className="max-w-300 mx-auto px-6">
         <div data-process-header className="text-center mb-14">
           <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
@@ -89,11 +138,46 @@ export default function Process() {
             7 понятных шагов. Без догадок.
           </p>
         </div>
+      </div>
 
-        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {steps.slice(0, 4).map((s) => (
+      {/* ─── Desktop: horizontal scroll track ─── */}
+      <div className="hidden md:block">
+        <div ref={wrapperRef} className="overflow-hidden">
+          <div
+            ref={trackRef}
+            className="flex gap-5 pl-[max(1.5rem,calc((100vw-75rem)/2+1.5rem))] pr-[max(1.5rem,calc((100vw-75rem)/2+1.5rem))]"
+            style={{ width: "max-content" }}
+          >
+            {steps.map((s) => (
+              <div
+                key={s.num}
+                data-step-card
+                className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden shrink-0"
+                style={{ width: "300px" }}
+              >
+                <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">
+                  {s.num}
+                </span>
+                <div className="emoji-bounce text-3xl mb-5">{s.emoji}</div>
+                <h3 className="font-bold text-navy text-base mb-2 group-hover:text-gold transition-colors">
+                  {s.title}
+                </h3>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  {s.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Mobile: vertical stack ─── */}
+      <div className="md:hidden">
+        <div className="max-w-300 mx-auto px-6 flex flex-col gap-4">
+          {steps.map((s) => (
             <div
               key={s.num}
+              data-step-card
               className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden"
             >
               <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">
@@ -108,27 +192,7 @@ export default function Process() {
               </p>
             </div>
           ))}
-        </StaggerGrid>
-
-        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-          {steps.slice(4).map((s) => (
-            <div
-              key={s.num}
-              className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden"
-            >
-              <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">
-                {s.num}
-              </span>
-              <div className="emoji-bounce text-3xl mb-5">{s.emoji}</div>
-              <h3 className="font-bold text-navy text-base mb-2 group-hover:text-gold transition-colors">
-                {s.title}
-              </h3>
-              <p className="text-text-secondary text-sm leading-relaxed">
-                {s.desc}
-              </p>
-            </div>
-          ))}
-        </StaggerGrid>
+        </div>
       </div>
     </section>
   );

@@ -27,10 +27,10 @@ body {
 
 /* ─── Card hover ─── */
 .card-hover {
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  transition: box-shadow 0.3s ease-out;
+  will-change: transform;
 }
 .card-hover:hover {
-  transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(27, 42, 74, 0.1);
 }
 

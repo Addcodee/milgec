@@ -108,15 +108,11 @@ export default function Trust() {
       <div className="max-w-300 mx-auto px-6">
         <div data-trust-header className="text-center mb-12">
           <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
-            Партнёры
+            200+ университетов-партнёров
           </p>
-          <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em] mb-3">
+          <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em]">
             Почему 6 000+ студентов доверяют MilGEC
           </h2>
-          <p className="text-text-muted text-sm max-w-125 mx-auto">
-            С 2020 года. Штаб-квартира — Циндао, Китай. Филиалы в 7 странах.
-            Официальный договор каждому клиенту.
-          </p>
         </div>
       </div>
 
@@ -127,7 +123,7 @@ export default function Trust() {
       </div>
 
       <p className="text-text-muted text-xs text-center">
-        + ещё 200 университетов-партнёров во всех провинциях Китая
+        С 2020 года. Штаб-квартира — Циндао, Китай. Филиалы в 7 странах.
       </p>
     </section>
   );

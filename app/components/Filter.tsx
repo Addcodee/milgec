@@ -88,9 +88,8 @@ export default function Filter() {
   return (
     <section ref={ref} className="bg-bg-alt py-20 md:py-24">
       <div className="max-w-300 mx-auto px-6">
-        <div data-filter-header className="text-center mb-12">
-          <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Честный фильтр</p>
-          <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em]">
+        <div data-filter-header className="mb-12">
+          <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold text-navy tracking-[-0.02em] text-center">
             MilGEC — не для всех
           </h2>
         </div>
