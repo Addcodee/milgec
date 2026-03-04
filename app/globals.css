@@ -23,6 +23,11 @@ html {
 body {
   background: var(--color-bg);
   color: var(--color-text);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading), var(--font-body), system-ui, sans-serif;
 }
 
 /* ─── Card hover ─── */

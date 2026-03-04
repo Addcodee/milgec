@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-inter",
+const fixelText = localFont({
+  src: [
+    { path: "../public/fonts/FixelText-Regular.woff2", weight: "400" },
+    { path: "../public/fonts/FixelText-Medium.woff2", weight: "500" },
+    { path: "../public/fonts/FixelText-SemiBold.woff2", weight: "600" },
+  ],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["cyrillic", "latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-heading",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -90,7 +103,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${fixelText.variable} ${spaceGrotesk.variable} antialiased`}>
         {children}
       </body>
     </html>
