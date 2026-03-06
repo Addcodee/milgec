@@ -105,7 +105,7 @@ export default function PainPoints() {
   }, { scope: ref });
 
   return (
-    <section ref={ref} className="bg-mesh-light py-20 md:py-24 overflow-hidden" id="fears">
+    <section ref={ref} className="bg-mesh-light py-20 md:py-24 overflow-x-clip" id="fears">
       <div className="max-w-300 mx-auto px-6">
         <div data-pain-header>
           <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Частые сомнения</p>

@@ -133,6 +133,7 @@ export default function AboutUs() {
                 src="/events/Zhongbang-Indonesia.webp"
                 alt="MilGEC в Индонезии"
                 className="w-full h-full"
+                eager
               />
             </div>
             <div data-about-photo className="rounded-2xl overflow-hidden aspect-[4/5] mt-6">
@@ -140,6 +141,7 @@ export default function AboutUs() {
                 src="/events/Zhongbang-Sri-Lanka.webp"
                 alt="MilGEC в Шри-Ланке"
                 className="w-full h-full"
+                eager
               />
             </div>
             <div data-about-photo className="rounded-2xl overflow-hidden aspect-[4/3] col-span-2">
@@ -147,6 +149,7 @@ export default function AboutUs() {
                 src="/events/1.webp"
                 alt="EDU China Fair 2024"
                 className="w-full h-full"
+                eager
               />
             </div>
           </div>

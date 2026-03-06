@@ -8,9 +8,10 @@ interface Props {
   alt: string;
   className?: string;
   fallback?: React.ReactNode;
+  eager?: boolean;
 }
 
-export default function BlurImage({ src, alt, className = "", fallback }: Props) {
+export default function BlurImage({ src, alt, className = "", fallback, eager }: Props) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const placeholder = blurPlaceholders[src];
@@ -33,7 +34,7 @@ export default function BlurImage({ src, alt, className = "", fallback }: Props)
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={eager ? "eager" : "lazy"}
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${

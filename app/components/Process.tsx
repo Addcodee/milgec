@@ -7,6 +7,9 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const HEADER_H = 72;
+const STACK_GAP = 10;
+
 const steps = [
   {
     num: "01",
@@ -125,7 +128,7 @@ export default function Process() {
   );
 
   return (
-      <section ref={sectionRef} className="bg-white py-20 md:py-24" id="process">
+      <section ref={sectionRef} className="bg-white py-20 md:py-24 overflow-x-clip" id="process">
         <div className="max-w-300 mx-auto px-6">
           <div data-process-header className="text-center mb-14">
             <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
@@ -170,25 +173,28 @@ export default function Process() {
           </div>
         </div>
 
-        {/* ─── Mobile: vertical stack ─── */}
+        {/* ─── Mobile: sticky stacking cards ─── */}
         <div className="md:hidden">
-          <div className="max-w-300 mx-auto px-6 flex flex-col gap-4">
-            {steps.map((s) => (
+          <div className="max-w-300 mx-auto px-6">
+            {steps.map((s, i) => (
               <div
                 key={s.num}
                 data-step-card
-                className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden"
+                className="sticky mb-4"
+                style={{ top: `${HEADER_H + i * STACK_GAP}px` }}
               >
-                <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">
-                  {s.num}
-                </span>
-                <div className="emoji-bounce text-3xl mb-5">{s.emoji}</div>
-                <h3 className="font-bold text-navy text-base mb-2 group-hover:text-gold transition-colors">
-                  {s.title}
-                </h3>
-                <p className="text-text-secondary text-sm leading-relaxed">
-                  {s.desc}
-                </p>
+                <div className="group bg-bg-alt rounded-2xl p-6 border border-border/50 relative overflow-hidden shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+                  <span className="absolute top-3 right-4 text-[56px] font-extrabold text-navy/4 leading-none select-none">
+                    {s.num}
+                  </span>
+                  <div className="text-2xl mb-3">{s.emoji}</div>
+                  <h3 className="font-bold text-navy text-sm mb-1.5">
+                    {s.title}
+                  </h3>
+                  <p className="text-text-secondary text-xs leading-relaxed">
+                    {s.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
