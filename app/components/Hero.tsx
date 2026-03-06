@@ -17,6 +17,31 @@ export default function Hero() {
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+    // Ken Burns — slow zoom out on background
+    gsap.fromTo("[data-hero-bg]",
+      { scale: 1.2 },
+      { scale: 1.05, duration: 20, ease: "none", repeat: -1, yoyo: true }
+    );
+
+    // Floating orbs drift
+    const orbs = container.current?.querySelectorAll("[data-hero-orb]");
+    orbs?.forEach((orb, i) => {
+      gsap.to(orb, {
+        y: i % 2 === 0 ? -30 : 25,
+        x: i % 2 === 0 ? 20 : -15,
+        duration: 6 + i * 2,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
+    });
+
+    // Gold shimmer on "по стипендии"
+    gsap.fromTo("[data-hero-shimmer]",
+      { x: "-100%" },
+      { x: "200%", duration: 3, ease: "power1.inOut", repeat: -1, repeatDelay: 4 }
+    );
+
     tl.from("[data-hero-badge]", { y: -20, opacity: 0, duration: 0.6 })
       .from("[data-hero-headline]", { y: 40, opacity: 0, duration: 0.8 }, "-=0.3")
       .from("[data-hero-sub]", { y: 30, opacity: 0, duration: 0.6 }, "-=0.4")
@@ -43,14 +68,24 @@ export default function Hero() {
       {/* Background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
+        data-hero-bg
         src="/events/Zhongbang-Indonesia.webp"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover scale-110"
       />
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-navy/80" />
+      {/* Dark overlay + blur */}
+      <div className="absolute inset-0 bg-navy/80 backdrop-blur-[3px]" />
       {/* Bottom gradient for smooth transition to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
+
+
+      {/* Grain texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "256px 256px" }} />
+
+      {/* Gold orbs */}
+      <div data-hero-orb className="absolute top-[15%] left-[10%] w-64 h-64 rounded-full bg-gold/15 blur-[100px] pointer-events-none z-10" />
+      <div data-hero-orb className="absolute bottom-[20%] right-[8%] w-80 h-80 rounded-full bg-gold/12 blur-[120px] pointer-events-none z-10" />
+      <div data-hero-orb className="absolute top-[50%] right-[30%] w-48 h-48 rounded-full bg-white/8 blur-[80px] pointer-events-none z-10" />
 
       <div className="relative max-w-300 mx-auto px-6 pt-21">
         <div className="flex flex-col items-center text-center justify-center py-10 md:py-12">
@@ -67,7 +102,10 @@ export default function Hero() {
           <h1 data-hero-headline className="text-[clamp(2.25rem,5.5vw,4.5rem)] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-6 max-w-3xl">
             Поступи в Китай
             <br />
-            <span className="text-gold">по стипендии</span>
+            <span className="relative inline-block text-gold">
+              по стипендии
+              <span data-hero-shimmer className="absolute inset-0 w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/15 to-transparent blur-[6px] pointer-events-none" />
+            </span>
           </h1>
 
           {/* Subtext */}

@@ -104,23 +104,7 @@ export default function Process() {
         });
       });
 
-      // Mobile: stagger reveal (no horizontal scroll)
-      mm.add("(max-width: 767px)", () => {
-        const cards = sectionRef.current!.querySelectorAll<HTMLElement>("[data-step-card]");
-        gsap.set(cards, { y: 30, opacity: 0 });
-        gsap.to(cards, {
-          y: 0,
-          opacity: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cards[0],
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        });
-      });
+      // Mobile: no GSAP animation — CSS sticky stacking handles it
 
       return () => mm.revert();
     },

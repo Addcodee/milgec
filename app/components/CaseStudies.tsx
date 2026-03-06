@@ -9,6 +9,9 @@ import BlurImage from "./BlurImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const HEADER_H = 72;
+const STACK_GAP = 10;
+
 const cases = [
   {
     name: "Ахмед К.",
@@ -107,7 +110,7 @@ export default function CaseStudies() {
   }, { scope: ref });
 
   return (
-    <section ref={ref} className="bg-white py-20 md:py-28 overflow-hidden" id="cases">
+    <section ref={ref} className="bg-white py-20 md:py-28 overflow-x-clip" id="cases">
       <div className="max-w-300 mx-auto px-6">
         <div data-cases-header className="md:flex md:items-end md:justify-between mb-14">
           <div>
@@ -123,7 +126,53 @@ export default function CaseStudies() {
           </p>
         </div>
 
-        <StaggerGrid className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.12}>
+        {/* ─── Mobile: sticky stacking cards ─── */}
+        <div className="md:hidden">
+          {cases.map((c, i) => (
+            <div
+              key={c.name}
+              className="sticky mb-4"
+              style={{ top: `${HEADER_H + i * STACK_GAP}px` }}
+            >
+              <div className="group relative rounded-2xl overflow-hidden bg-bg-alt border border-border shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+                <div className="relative h-44 overflow-hidden bg-bg-alt">
+                  <StudentPhoto src={c.photo} initials={c.initials} name={c.name} />
+                  <div className="absolute top-3 right-3 bg-gold text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full shadow-md">
+                    {c.scholarship}
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h3 className="text-text font-bold text-sm">{c.name}</h3>
+                      <p className="text-text-muted text-xs mt-0.5">{c.from}</p>
+                    </div>
+                    <div className="flex items-center gap-1 text-text-muted text-xs">
+                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {c.timeline}
+                    </div>
+                  </div>
+                  <div className="border-t border-border pt-3">
+                    <div className="flex items-start gap-2">
+                      <svg className="w-4 h-4 text-gold mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342" />
+                      </svg>
+                      <div>
+                        <p className="text-text font-semibold text-xs">{c.university}</p>
+                        <p className="text-text-secondary text-xs">{c.program}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ─── Desktop: grid layout ─── */}
+        <StaggerGrid className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.12}>
           {cases.map((c) => (
             <div
               key={c.name}
