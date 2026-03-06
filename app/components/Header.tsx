@@ -21,28 +21,34 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-8">
           <a
+            href="#about"
+            className="text-white/80 hover:text-white text-sm transition-colors"
+          >
+            О нас
+          </a>
+          <a
             href="#process"
             className="text-white/80 hover:text-white text-sm transition-colors"
           >
             Как это работает
           </a>
           <a
-            href="#trust"
+            href="#partners"
             className="text-white/80 hover:text-white text-sm transition-colors"
           >
-            Университеты
-          </a>
-          <a
-            href="#pricing"
-            className="text-white/80 hover:text-white text-sm transition-colors"
-          >
-            Цены
+            Партнёры
           </a>
           <a
             href="#cases"
             className="text-white/80 hover:text-white text-sm transition-colors"
           >
             Результаты
+          </a>
+          <a
+            href="#pricing"
+            className="text-white/80 hover:text-white text-sm transition-colors"
+          >
+            Цены
           </a>
           <a
             href="#form"
@@ -76,6 +82,13 @@ export default function Header() {
       {menuOpen && (
         <nav className="md:hidden bg-navy border-t border-white/10 px-4 py-4 flex flex-col gap-4">
           <a
+            href="#about"
+            onClick={() => setMenuOpen(false)}
+            className="text-white/80 hover:text-white text-sm"
+          >
+            О нас
+          </a>
+          <a
             href="#process"
             onClick={() => setMenuOpen(false)}
             className="text-white/80 hover:text-white text-sm"
@@ -83,18 +96,11 @@ export default function Header() {
             Как это работает
           </a>
           <a
-            href="#trust"
+            href="#partners"
             onClick={() => setMenuOpen(false)}
             className="text-white/80 hover:text-white text-sm"
           >
-            Университеты
-          </a>
-          <a
-            href="#pricing"
-            onClick={() => setMenuOpen(false)}
-            className="text-white/80 hover:text-white text-sm"
-          >
-            Цены
+            Партнёры
           </a>
           <a
             href="#cases"
@@ -102,6 +108,13 @@ export default function Header() {
             className="text-white/80 hover:text-white text-sm"
           >
             Результаты
+          </a>
+          <a
+            href="#pricing"
+            onClick={() => setMenuOpen(false)}
+            className="text-white/80 hover:text-white text-sm"
+          >
+            Цены
           </a>
           <a
             href="#form"

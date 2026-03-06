@@ -14,7 +14,7 @@ const fixelText = localFont({
 });
 
 const spaceGrotesk = Space_Grotesk({
-  subsets: ["cyrillic", "latin"],
+  subsets: ["latin"],
   weight: ["500", "600", "700"],
   variable: "--font-heading",
   display: "swap",

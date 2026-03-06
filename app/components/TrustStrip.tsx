@@ -9,9 +9,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   { target: 200, suffix: "+", label: "Университетов-партнёров" },
-  { target: 60, suffix: "+", label: "Стран" },
+  { target: 60, suffix: "+", label: "Стран мира" },
   { target: 6000, suffix: "+", label: "Студентов зачислено", format: true },
-  { target: 90, suffix: "%", label: "Получают стипендию" },
+  { target: 2800, suffix: "", label: "Набор 2025 года", format: true },
 ];
 
 export default function TrustStrip() {

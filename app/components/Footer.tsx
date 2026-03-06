@@ -34,6 +34,7 @@ export default function Footer() {
               <strong className="text-white/80">Главный офис:</strong> Циндао, Китай
             </p>
             <p className="text-white/60 text-sm mt-2 leading-relaxed">
+              <strong className="text-gold">Казахстан</strong> &bull;
               Индонезия &bull; Шри-Ланка &bull; Марокко &bull; Россия &bull;
               Пакистан &bull; Бангладеш &bull; Кыргызстан
             </p>

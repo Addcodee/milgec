@@ -9,33 +9,24 @@ gsap.registerPlugin(ScrollTrigger);
 
 const row1 = [
   { name: "China University of Petroleum", logo: "/universities/cup.svg" },
-  {
-    name: "Huazhong University of Science and Technology",
-    logo: "/universities/hust.png",
-  },
+  { name: "Huazhong University of Science and Technology", logo: "/universities/hust.png" },
   { name: "Xi'an Jiaotong University", logo: "/universities/xjtu.png" },
-  { name: "East China Normal University", logo: "/universities/ecnu.svg" },
-  {
-    name: "South China University of Technology",
-    logo: "/universities/scut.png",
-  },
+  { name: "South China University of Technology", logo: "/universities/scut.png" },
   { name: "Harbin Institute of Technology", logo: "/universities/hit.gif" },
-  {
-    name: "Nanjing University of Information Science and Technology",
-    logo: "/universities/nuist.png",
-  },
   { name: "Zhengzhou University", logo: "/universities/zzu.png" },
+  { name: "Beijing Foreign Studies University", logo: "/universities/bfsu.png" },
+  { name: "Beijing Institute of Graphic Communication", logo: "/universities/bigc.png" },
 ];
 
 const row2 = [
-  { name: "Shandong University", logo: "/universities/sdu.png" },
-  { name: "Zhejiang University of Technology", logo: "/universities/zjut.svg" },
-  { name: "Shanghai University", logo: "/universities/shu.svg" },
-  { name: "Wuhan University", logo: "/universities/whu.png" },
-  { name: "Dalian University of Technology", logo: "/universities/dlut.png" },
-  { name: "Tianjin University", logo: "/universities/tju.png" },
-  { name: "Beijing Institute of Technology", logo: "/universities/bit.png" },
-  { name: "Sun Yat-sen University", logo: "/universities/sysu.png" },
+  { name: "Central China Normal University", logo: "/universities/ccnu.svg" },
+  { name: "Dalian Maritime University", logo: "/universities/dmu.png" },
+  { name: "Hebei University of Science and Technology", logo: "/universities/hebust.png" },
+  { name: "Ningbo University of Finance and Economics", logo: "/universities/nbufe.png" },
+  { name: "Nanjing Polytechnic Institute", logo: "/universities/njpi.png" },
+  { name: "Shandong Normal University", logo: "/universities/sdnu.jpg" },
+  { name: "Southwest University of Political Science and Law", logo: "/universities/swupl.png" },
+  { name: "Tiangong University", logo: "/universities/tgu.svg" },
 ];
 
 function MarqueeRow({
