@@ -117,7 +117,7 @@ export default function Filter() {
             <h3 className="text-[15px] font-bold mb-5">
               Мы — правильный выбор, если:
             </h3>
-            <ul data-filter-list className="flex flex-col gap-3">
+            <ul data-filter-list className="flex flex-col gap-3 mb-6">
               {goodFit.map((item) => (
                 <li key={item} className="flex items-start gap-2.5 text-[13px] text-white/60 leading-relaxed">
                   <span className="w-4.5 h-4.5 rounded-full bg-gold/20 text-gold text-[10px] flex items-center justify-center shrink-0 mt-0.5">&#10003;</span>
@@ -125,6 +125,12 @@ export default function Filter() {
                 </li>
               ))}
             </ul>
+            <a
+              href="#form"
+              className="block text-center bg-gold hover:bg-gold-hover text-white text-sm font-bold py-3 rounded-xl transition-all hover:shadow-[0_4px_20px_rgba(212,168,67,0.3)]"
+            >
+              Начать поступление
+            </a>
           </div>
         </div>
       </div>

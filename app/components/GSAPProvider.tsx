@@ -70,7 +70,13 @@ export default function GSAPProvider({ children }: { children: React.ReactNode }
     // Init 3D tilt on all .card-hover elements
     const cleanupTilt = initTilt();
 
+    // Refresh ScrollTrigger after all components mount to ensure correct positions
+    const rafId = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
     return () => {
+      cancelAnimationFrame(rafId);
       cleanupTilt();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };

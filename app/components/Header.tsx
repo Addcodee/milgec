@@ -29,37 +29,31 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-8">
           <a
-            href="#about"
+            href="/#about"
             className="text-white/80 hover:text-white text-sm transition-colors"
           >
             О нас
           </a>
-          <a
-            href="#process"
+          {/* <a
+            href="/universities"
             className="text-white/80 hover:text-white text-sm transition-colors"
           >
-            Как это работает
-          </a>
+            Университеты
+          </a> */}
           <a
-            href="#partners"
-            className="text-white/80 hover:text-white text-sm transition-colors"
-          >
-            Партнёры
-          </a>
-          <a
-            href="#cases"
-            className="text-white/80 hover:text-white text-sm transition-colors"
-          >
-            Результаты
-          </a>
-          <a
-            href="#pricing"
+            href="/#pricing"
             className="text-white/80 hover:text-white text-sm transition-colors"
           >
             Цены
           </a>
           <a
-            href="#form"
+            href="/services"
+            className="text-white text-sm font-semibold border border-white/20 px-3.5 py-1.5 rounded-lg hover:bg-white/10 transition-all"
+          >
+            Услуги
+          </a>
+          <a
+            href="/#form"
             className="bg-gold hover:bg-gold-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors"
           >
             Бесплатная оценка
@@ -90,42 +84,35 @@ export default function Header() {
       {menuOpen && (
         <nav className="md:hidden bg-navy border-t border-white/10 px-4 py-4 flex flex-col gap-4">
           <a
-            href="#about"
+            href="/#about"
             onClick={() => setMenuOpen(false)}
             className="text-white/80 hover:text-white text-sm"
           >
             О нас
           </a>
           <a
-            href="#process"
+            href="/services"
+            onClick={() => setMenuOpen(false)}
+            className="text-white text-sm font-semibold border border-white/20 px-3.5 py-1.5 rounded-lg hover:bg-white/10 transition-all"
+          >
+            Услуги
+          </a>
+          {/* <a
+            href="/universities"
             onClick={() => setMenuOpen(false)}
             className="text-white/80 hover:text-white text-sm"
           >
-            Как это работает
-          </a>
+            Университеты
+          </a> */}
           <a
-            href="#partners"
-            onClick={() => setMenuOpen(false)}
-            className="text-white/80 hover:text-white text-sm"
-          >
-            Партнёры
-          </a>
-          <a
-            href="#cases"
-            onClick={() => setMenuOpen(false)}
-            className="text-white/80 hover:text-white text-sm"
-          >
-            Результаты
-          </a>
-          <a
-            href="#pricing"
+            href="/#pricing"
             onClick={() => setMenuOpen(false)}
             className="text-white/80 hover:text-white text-sm"
           >
             Цены
           </a>
           <a
-            href="#form"
+            href="/#form"
             onClick={() => setMenuOpen(false)}
             className="bg-gold hover:bg-gold-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors text-center"
           >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import blurPlaceholders from "../lib/blur-placeholders";
 
 interface Props {
@@ -15,6 +15,12 @@ export default function BlurImage({ src, alt, className = "", fallback, eager }:
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const placeholder = blurPlaceholders[src];
+
+  const imgRef = useCallback((img: HTMLImageElement | null) => {
+    if (img?.complete && img.naturalWidth > 0) {
+      setLoaded(true);
+    }
+  }, []);
 
   if (error && fallback) return <>{fallback}</>;
 
@@ -32,6 +38,7 @@ export default function BlurImage({ src, alt, className = "", fallback, eager }:
       {/* Actual image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
+        ref={imgRef}
         src={src}
         alt={alt}
         loading={eager ? "eager" : "lazy"}
