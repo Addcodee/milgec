@@ -125,35 +125,59 @@ export default function Process() {
   );
 
   return (
-    <section ref={sectionRef} className="bg-white py-20 md:py-24" id="process">
-      <div className="max-w-300 mx-auto px-6">
-        <div data-process-header className="text-center mb-14">
-          <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
-            Процесс
-          </p>
-          <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em] mb-3">
-            Ваш путь в китайский университет
-          </h2>
-          <p className="text-text-muted text-sm">
-            7 понятных шагов. Без догадок.
-          </p>
+      <section ref={sectionRef} className="bg-white py-20 md:py-24" id="process">
+        <div className="max-w-300 mx-auto px-6">
+          <div data-process-header className="text-center mb-14">
+            <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
+              Процесс
+            </p>
+            <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold text-navy tracking-[-0.02em] mb-3">
+              Ваш путь в китайский университет
+            </h2>
+            <p className="text-text-muted text-sm">
+              7 понятных шагов. Без догадок.
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* ─── Desktop: horizontal scroll track ─── */}
-      <div className="hidden md:block">
-        <div ref={wrapperRef} className="overflow-hidden">
-          <div
-            ref={trackRef}
-            className="flex gap-5 pl-[max(1.5rem,calc((100vw-75rem)/2+1.5rem))] pr-[max(1.5rem,calc((100vw-75rem)/2+1.5rem))]"
-            style={{ width: "max-content" }}
-          >
+        {/* ─── Desktop: horizontal scroll track ─── */}
+        <div className="hidden md:block">
+          <div ref={wrapperRef} className="overflow-hidden">
+            <div
+              ref={trackRef}
+              className="flex gap-5 px-6"
+            >
+              {steps.map((s) => (
+                <div
+                  key={s.num}
+                  data-step-card
+                  className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden shrink-0"
+                  style={{ width: "300px" }}
+                >
+                  <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">
+                    {s.num}
+                  </span>
+                  <div className="emoji-bounce text-3xl mb-5">{s.emoji}</div>
+                  <h3 className="font-bold text-navy text-base mb-2 group-hover:text-gold transition-colors">
+                    {s.title}
+                  </h3>
+                  <p className="text-text-secondary text-sm leading-relaxed">
+                    {s.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Mobile: vertical stack ─── */}
+        <div className="md:hidden">
+          <div className="max-w-300 mx-auto px-6 flex flex-col gap-4">
             {steps.map((s) => (
               <div
                 key={s.num}
                 data-step-card
-                className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden shrink-0"
-                style={{ width: "300px" }}
+                className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden"
               >
                 <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">
                   {s.num}
@@ -169,31 +193,6 @@ export default function Process() {
             ))}
           </div>
         </div>
-      </div>
-
-      {/* ─── Mobile: vertical stack ─── */}
-      <div className="md:hidden">
-        <div className="max-w-300 mx-auto px-6 flex flex-col gap-4">
-          {steps.map((s) => (
-            <div
-              key={s.num}
-              data-step-card
-              className="card-hover group bg-bg-alt rounded-2xl p-7 border border-border/50 relative overflow-hidden"
-            >
-              <span className="absolute top-4 right-5 text-[72px] font-extrabold text-navy/4 leading-none select-none">
-                {s.num}
-              </span>
-              <div className="emoji-bounce text-3xl mb-5">{s.emoji}</div>
-              <h3 className="font-bold text-navy text-base mb-2 group-hover:text-gold transition-colors">
-                {s.title}
-              </h3>
-              <p className="text-text-secondary text-sm leading-relaxed">
-                {s.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
   );
 }

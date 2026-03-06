@@ -46,7 +46,7 @@ export default function Hero() {
   }, { scope: container });
 
   return (
-    <section ref={container} className="relative bg-navy overflow-hidden" id="hero">
+    <section ref={container} className="relative bg-navy overflow-hidden pt-21" id="hero">
       {/* Subtle background glow */}
       <div className="absolute top-0 right-0 w-150 h-150 rounded-full bg-gold/5 blur-[120px] pointer-events-none" />
 
@@ -110,7 +110,7 @@ export default function Hero() {
 
           {/* Right — image */}
           <div className="relative hidden lg:block" data-hero-image>
-            <div className="relative rounded-3xl overflow-hidden aspect-4/5 max-w-md ml-auto">
+            <div className="relative rounded-3xl overflow-hidden aspect-4/5 max-w-sm 2xl:max-w-md ml-auto">
               {!imgFailed ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img

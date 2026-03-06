@@ -86,7 +86,7 @@ export default function Filter() {
   }, { scope: ref });
 
   return (
-    <section ref={ref} className="bg-bg-alt py-20 md:py-24">
+    <section ref={ref} className="bg-bg-alt py-20 md:py-24 overflow-hidden">
       <div className="max-w-300 mx-auto px-6">
         <div data-filter-header className="mb-12">
           <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold text-navy tracking-[-0.02em] text-center">

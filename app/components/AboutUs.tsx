@@ -5,24 +5,47 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import RevealOnScroll from "./RevealOnScroll";
+import BlurImage from "./BlurImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const branches = [
-  "Индонезия",
-  "Шри-Ланка",
-  "Марокко",
-  "Россия",
-  "Пакистан",
-  "Бангладеш",
-  "Кыргызстан",
-];
-
-const highlights = [
-  { value: "2020", label: "Год основания" },
-  { value: "200+", label: "Университетов-партнёров" },
-  { value: "60+", label: "Стран мира" },
-  { value: "6 000+", label: "Студентов зачислено" },
+const pillars = [
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+      </svg>
+    ),
+    title: "200+ ВУЗов",
+    desc: "Прямые договоры с университетами по всему Китаю",
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+      </svg>
+    ),
+    title: "6 000+ студентов",
+    desc: "Успешно зачислены из 60+ стран мира",
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+      </svg>
+    ),
+    title: "Аккредитация",
+    desc: "Официальный представитель ведущих ВУЗов",
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9 9 0 0 1 3 12c0-1.047.18-2.053.507-2.988" />
+      </svg>
+    ),
+    title: "8 филиалов",
+    desc: "Индонезия, Марокко, Россия, Казахстан и др.",
+  },
 ];
 
 export default function AboutUs() {
@@ -46,110 +69,84 @@ export default function AboutUs() {
   }, { scope: ref });
 
   return (
-    <section ref={ref} className="bg-bg-alt py-20 md:py-28" id="about">
+    <section ref={ref} className="bg-bg-alt py-20 md:py-28 overflow-hidden" id="about">
       <div className="max-w-300 mx-auto px-6">
-        {/* Header */}
-        <RevealOnScroll animation="fade-up">
-          <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
-            О компании
-          </p>
-          <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold text-text tracking-[-0.03em] mb-6">
-            Millennium Gateway Education China
-          </h2>
-        </RevealOnScroll>
-
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Text */}
-          <RevealOnScroll animation="fade-up" delay={0.1}>
-            <div className="space-y-5">
-              <p className="text-text-secondary text-base leading-relaxed">
-                <strong className="text-text">MilGEC</strong> (Millennium Gateway Education China) —
-                образовательная компания, основанная в 2020 году со штаб-квартирой
-                в <strong className="text-text">Циндао, Китай</strong>. С момента основания мы помогаем
-                иностранным студентам поступить в лучшие университеты Китая по стипендиям.
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left — content */}
+          <div>
+            <RevealOnScroll animation="fade-up">
+              <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">
+                О компании
               </p>
-
-              <p className="text-text-secondary text-base leading-relaxed">
-                Мы предоставляем индивидуальный подход — персональный сервис подготовки
-                документов и подачи заявок для каждого студента. На сегодняшний день MilGEC
-                работает с более чем <strong className="text-text">200 университетами</strong> Китая и
-                успешно помог более <strong className="text-text">6 000 студентам</strong> из
-                60+ стран мира получить образование в Китае.
+              <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold text-text tracking-[-0.03em] mb-4">
+                Millennium Gateway
+                <br />
+                Education China
+              </h2>
+              <p className="text-text-secondary text-base leading-relaxed max-w-lg mb-8">
+                С 2020 года помогаем студентам со всего мира поступить
+                в лучшие университеты Китая по стипендиям — от подбора ВУЗа
+                до встречи в аэропорту.
               </p>
+            </RevealOnScroll>
 
-              {/* Kazakhstan badge */}
-              <div className="bg-gold/10 border border-gold/30 rounded-xl p-4 mt-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                    </svg>
+            {/* Pillar cards */}
+            <div className="grid grid-cols-2 gap-3">
+              {pillars.map((p, i) => (
+                <RevealOnScroll key={p.title} animation="fade-up" delay={0.08 * i}>
+                  <div className="bg-white rounded-xl border border-border p-4 h-full transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                    <div className="w-9 h-9 rounded-lg bg-gold/10 text-gold flex items-center justify-center mb-3">
+                      {p.icon}
+                    </div>
+                    <p className="text-text font-bold text-sm leading-tight">{p.title}</p>
+                    <p className="text-text-muted text-xs mt-1.5 leading-snug">{p.desc}</p>
                   </div>
-                  <div>
-                    <p className="text-text font-bold text-sm">
-                      Официальный филиал в Казахстане
-                    </p>
-                    <p className="text-text-secondary text-sm mt-1">
-                      MilGEC является официальным представительством в Казахстане —
-                      прямой аккредитованный партнёр ведущих ВУЗов Китая.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Branch offices */}
-              <div className="pt-2">
-                <p className="text-text-muted text-xs uppercase tracking-[0.12em] mb-3">
-                  Филиалы по всему миру
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {branches.map((b) => (
-                    <span
-                      key={b}
-                      className="px-3 py-1.5 bg-white rounded-full text-text-secondary text-xs font-medium border border-border"
-                    >
-                      {b}
-                    </span>
-                  ))}
-                  <span className="px-3 py-1.5 bg-gold/10 rounded-full text-gold text-xs font-bold border border-gold/30">
-                    Казахстан
-                  </span>
-                </div>
-              </div>
-
-              {/* Stats mini grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
-                {highlights.map((h) => (
-                  <div key={h.label} className="text-center py-3 bg-white rounded-xl border border-border">
-                    <div className="text-navy text-xl font-extrabold">{h.value}</div>
-                    <div className="text-text-muted text-[11px] uppercase tracking-wide mt-1">{h.label}</div>
-                  </div>
-                ))}
-              </div>
+                </RevealOnScroll>
+              ))}
             </div>
-          </RevealOnScroll>
 
-          {/* Photos grid */}
+            {/* Kazakhstan accent */}
+            <RevealOnScroll animation="fade-up" delay={0.35}>
+              <div className="mt-4 flex items-center gap-2.5 bg-gold/8 border border-gold/25 rounded-xl px-4 py-3">
+                <div className="w-8 h-8 rounded-lg bg-gold/15 flex items-center justify-center shrink-0">
+                  <svg className="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-text font-bold text-xs">
+                    Официальный филиал в Казахстане
+                  </p>
+                  <p className="text-text-muted text-[11px] mt-0.5">
+                    Прямой аккредитованный партнёр ведущих ВУЗов Китая
+                  </p>
+                </div>
+              </div>
+            </RevealOnScroll>
+          </div>
+
+          {/* Right — photos */}
           <div className="grid grid-cols-2 gap-3">
             <div data-about-photo className="rounded-2xl overflow-hidden aspect-[4/5]">
-              <img
-                src="/events/Zhongbang-Indonesia.jpg"
+              <BlurImage
+                src="/events/Zhongbang-Indonesia.webp"
                 alt="MilGEC в Индонезии"
-                className="w-full h-full object-cover"
+                className="w-full h-full"
               />
             </div>
             <div data-about-photo className="rounded-2xl overflow-hidden aspect-[4/5] mt-6">
-              <img
-                src="/events/Zhongbang-Sri-Lanka.jpg"
+              <BlurImage
+                src="/events/Zhongbang-Sri-Lanka.webp"
                 alt="MilGEC в Шри-Ланке"
-                className="w-full h-full object-cover"
+                className="w-full h-full"
               />
             </div>
             <div data-about-photo className="rounded-2xl overflow-hidden aspect-[4/3] col-span-2">
-              <img
-                src="/events/1.PNG"
+              <BlurImage
+                src="/events/1.webp"
                 alt="EDU China Fair 2024"
-                className="w-full h-full object-cover"
+                className="w-full h-full"
               />
             </div>
           </div>

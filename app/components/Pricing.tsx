@@ -80,7 +80,7 @@ export default function Pricing() {
   }, { scope: ref });
 
   return (
-    <section ref={ref} className="bg-bg-alt py-20 md:py-24" id="pricing">
+    <section ref={ref} className="bg-bg-alt py-20 md:py-24 overflow-hidden" id="pricing">
       <div className="max-w-300 mx-auto px-6">
         <div data-pricing-header className="text-center mb-12">
           <p className="text-gold text-xs font-semibold uppercase tracking-[0.15em] mb-3">Тарифы</p>

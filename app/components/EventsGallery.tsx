@@ -1,33 +1,37 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import RevealOnScroll from "./RevealOnScroll";
+import BlurImage from "./BlurImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const events = [
-  { src: "/events/Indonesia-High-School-Presentation.jpg", label: "Презентация в школах Индонезии", span: "col-span-2 row-span-2" },
-  { src: "/events/Zhongbang-Morocco.jpg", label: "MilGEC в Марокко", span: "" },
-  { src: "/events/Zhongbang-Seminar.jpg", label: "Семинар MilGEC", span: "" },
-  { src: "/events/Sri-Lanka-Wendy-Consultation.jpg", label: "Консультация — Шри-Ланка", span: "" },
-  { src: "/events/Moroccan-Students-Arriving-in-China.jpg", label: "Марокканские студенты в Китае", span: "" },
-  { src: "/events/Airport-Pickup-Morocco.jpg", label: "Встреча в аэропорту — Марокко", span: "col-span-2" },
-  { src: "/events/Indonesia-Pre-Departure-Guidance.jpg", label: "Подготовка к отъезду — Индонезия", span: "" },
-  { src: "/events/Zhongbang-Airport-Pickup-Snacks.jpg", label: "Приветственные наборы для студентов", span: "" },
-  { src: "/events/Morocco-Exhibition-Representation.jpg", label: "Выставка в Марокко", span: "" },
-  { src: "/events/Indonesia-Office.jpg", label: "Офис MilGEC — Индонезия", span: "" },
-  { src: "/events/Zhongbang-Sri-Lanka-2.jpg", label: "MilGEC в Шри-Ланке", span: "col-span-2" },
-  { src: "/events/Wendy-Indonesia-2.jpg", label: "Визит в Индонезию", span: "" },
-  { src: "/events/2.jpg", label: "Студенческое мероприятие", span: "" },
-  { src: "/events/3.jpg", label: "Командная работа", span: "" },
-  { src: "/events/4.jpg", label: "Встреча со студентами", span: "" },
+  { src: "/events/Indonesia-High-School-Presentation.webp", label: "Презентация в школах Индонезии" },
+  { src: "/events/Zhongbang-Morocco.webp", label: "MilGEC в Марокко" },
+  { src: "/events/Zhongbang-Seminar.webp", label: "Семинар MilGEC" },
+  { src: "/events/Sri-Lanka-Wendy-Consultation.webp", label: "Консультация — Шри-Ланка" },
+  { src: "/events/Moroccan-Students-Arriving-in-China.webp", label: "Марокканские студенты в Китае" },
+  { src: "/events/Airport-Pickup-Morocco.webp", label: "Встреча в аэропорту — Марокко" },
+  { src: "/events/Indonesia-Pre-Departure-Guidance.webp", label: "Подготовка к отъезду — Индонезия" },
+  { src: "/events/Zhongbang-Airport-Pickup-Snacks.webp", label: "Приветственные наборы для студентов" },
+  { src: "/events/Morocco-Exhibition-Representation.webp", label: "Выставка в Марокко" },
+  { src: "/events/Indonesia-Office.webp", label: "Офис MilGEC — Индонезия" },
+  { src: "/events/Zhongbang-Sri-Lanka-2.webp", label: "MilGEC в Шри-Ланке" },
+  { src: "/events/Wendy-Indonesia-2.webp", label: "Визит в Индонезию" },
+  { src: "/events/2.webp", label: "Студенческое мероприятие" },
+  { src: "/events/3.webp", label: "Командная работа" },
+  { src: "/events/4.webp", label: "Встреча со студентами" },
 ];
+
+const VISIBLE_COUNT = 6;
 
 export default function EventsGallery() {
   const ref = useRef<HTMLElement>(null);
+  const [expanded, setExpanded] = useState(false);
 
   useGSAP(() => {
     if (!ref.current) return;
@@ -50,8 +54,24 @@ export default function EventsGallery() {
     });
   }, { scope: ref });
 
+  const handleExpand = useCallback(() => {
+    setExpanded(true);
+    // Animate newly visible cards after state update
+    requestAnimationFrame(() => {
+      if (!ref.current) return;
+      const hiddenCards = ref.current.querySelectorAll("[data-event-hidden]");
+      gsap.fromTo(hiddenCards,
+        { y: 30, opacity: 0, scale: 0.96 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "power3.out", stagger: 0.06 }
+      );
+    });
+  }, []);
+
+  const visible = expanded ? events : events.slice(0, VISIBLE_COUNT);
+  const hasMore = !expanded && events.length > VISIBLE_COUNT;
+
   return (
-    <section ref={ref} className="bg-white py-20 md:py-28" id="events">
+    <section ref={ref} className="bg-white py-20 md:py-28 overflow-hidden" id="events">
       <div className="max-w-300 mx-auto px-6">
         <RevealOnScroll animation="fade-up">
           <div className="md:flex md:items-end md:justify-between mb-14">
@@ -70,19 +90,19 @@ export default function EventsGallery() {
           </div>
         </RevealOnScroll>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[180px] md:auto-rows-[200px]">
-          {events.map((e, i) => (
+        {/* Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 auto-rows-[200px] md:auto-rows-[240px]">
+          {visible.map((e, i) => (
             <div
-              key={i}
+              key={e.src}
               data-event-card
-              className={`group relative rounded-2xl overflow-hidden cursor-pointer ${e.span}`}
+              {...(i >= VISIBLE_COUNT ? { "data-event-hidden": "" } : {})}
+              className="group relative rounded-2xl overflow-hidden cursor-pointer"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <BlurImage
                 src={e.src}
                 alt={e.label}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="absolute inset-0 w-full h-full"
               />
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -95,6 +115,24 @@ export default function EventsGallery() {
             </div>
           ))}
         </div>
+
+        {/* Show more */}
+        {hasMore && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={handleExpand}
+              className="group flex items-center gap-2 bg-navy/5 hover:bg-navy/10 text-navy font-semibold text-sm px-6 py-3 rounded-xl transition-colors"
+            >
+              Смотреть ещё
+              <span className="text-xs text-navy/40 group-hover:text-navy/60 transition-colors">
+                +{events.length - VISIBLE_COUNT}
+              </span>
+              <svg className="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

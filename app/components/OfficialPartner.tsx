@@ -5,31 +5,32 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import RevealOnScroll from "./RevealOnScroll";
+import BlurImage from "./BlurImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const certificates = [
-  { uni: "China University of Petroleum", short: "UPC", file: "/authorization/UPC-2026-Authorization-Letter.jpg", type: "jpg" },
-  { uni: "Huazhong University of Science & Technology", short: "HUST", file: "/authorization/HUST.jpg", type: "jpg" },
-  { uni: "Xi'an Jiaotong University", short: "XJTU", file: "/authorization/XJTU-Cooperation-Authorization-Letter.pdf", type: "pdf" },
-  { uni: "Zhengzhou University", short: "ZZU", file: "/authorization/ZZU-2026-Authorization-Letter.jpg", type: "jpg" },
-  { uni: "Nanjing University of Info Science & Technology", short: "NUIST", file: "/authorization/NJPI.jpg", type: "jpg" },
-  { uni: "Shandong Normal University", short: "SDNU", file: "/authorization/SDNU.jpg", type: "jpg" },
-  { uni: "South China University of Technology", short: "SCUT", file: "/authorization/SCUT.pdf", type: "pdf" },
-  { uni: "Harbin Institute of Technology", short: "HIT", file: "/authorization/HIT.pdf", type: "pdf" },
-  { uni: "Beijing Institute of Graphic Communication", short: "BIGC", file: "/authorization/BIGC.pdf", type: "pdf" },
-  { uni: "Central China Normal University", short: "CCNU", file: "/authorization/CCNU.pdf", type: "pdf" },
-  { uni: "Dalian Medical University", short: "DMU", file: "/authorization/DMU.pdf", type: "pdf" },
-  { uni: "Hebei University of Science & Technology", short: "HEBUST", file: "/authorization/HEBUST.pdf", type: "pdf" },
-  { uni: "Ningbo University of Finance & Economics", short: "NBUFE", file: "/authorization/NBUFE.pdf", type: "pdf" },
-  { uni: "Southwest University of Political Science & Law", short: "SWUPL", file: "/authorization/SWUPL.pdf", type: "pdf" },
-  { uni: "Tiangong University", short: "TGU", file: "/authorization/TGU.pdf", type: "pdf" },
-  { uni: "Beijing Foreign Studies University", short: "BFSU", file: "/authorization/BFSU-IBS.pdf", type: "pdf" },
+  { uni: "China University of Petroleum", short: "UPC", file: "/authorization/UPC-2026-Authorization-Letter.webp" },
+  { uni: "Huazhong University of Science & Technology", short: "HUST", file: "/authorization/HUST.webp" },
+  { uni: "Xi'an Jiaotong University", short: "XJTU", file: "/authorization/XJTU-Cooperation-Authorization-Letter.png" },
+  { uni: "Zhengzhou University", short: "ZZU", file: "/authorization/ZZU-2026-Authorization-Letter.webp" },
+  { uni: "Nanjing Polytechnic Institute", short: "NJPI", file: "/authorization/NJPI.webp" },
+  { uni: "Shandong Normal University", short: "SDNU", file: "/authorization/SDNU.webp" },
+  { uni: "South China University of Technology", short: "SCUT", file: "/authorization/SCUT.png" },
+  { uni: "Harbin Institute of Technology", short: "HIT", file: "/authorization/HIT.png" },
+  { uni: "Beijing Institute of Graphic Communication", short: "BIGC", file: "/authorization/BIGC.png" },
+  { uni: "Central China Normal University", short: "CCNU", file: "/authorization/CCNU.png" },
+  { uni: "Dalian Maritime University", short: "DMU", file: "/authorization/DMU.png" },
+  { uni: "Hebei University of Science & Technology", short: "HEBUST", file: "/authorization/HEBUST.png" },
+  { uni: "Ningbo University of Finance & Economics", short: "NBUFE", file: "/authorization/NBUFE.png" },
+  { uni: "Southwest University of Political Science & Law", short: "SWUPL", file: "/authorization/SWUPL.png" },
+  { uni: "Tiangong University", short: "TGU", file: "/authorization/TGU.png" },
+  { uni: "Beijing Foreign Studies University", short: "BFSU", file: "/authorization/BFSU-IBS.png" },
 ];
 
 export default function OfficialPartner() {
   const ref = useRef<HTMLElement>(null);
-  const [lightbox, setLightbox] = useState<{ file: string; uni: string; type: string } | null>(null);
+  const [lightbox, setLightbox] = useState<{ file: string; uni: string } | null>(null);
 
   useGSAP(() => {
     if (!ref.current) return;
@@ -54,7 +55,7 @@ export default function OfficialPartner() {
 
   return (
     <>
-      <section ref={ref} className="bg-bg-alt py-20 md:py-28" id="partners">
+      <section ref={ref} className="bg-bg-alt py-20 md:py-28 overflow-hidden" id="partners">
         <div className="max-w-300 mx-auto px-6">
           {/* Header */}
           <RevealOnScroll animation="fade-up">
@@ -84,30 +85,16 @@ export default function OfficialPartner() {
               <div
                 key={cert.short}
                 data-cert-card
-                onClick={() =>
-                  cert.type === "jpg"
-                    ? setLightbox(cert)
-                    : window.open(cert.file, "_blank")
-                }
+                onClick={() => setLightbox(cert)}
                 className="group relative bg-white rounded-2xl border border-border p-4 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
               >
                 {/* Preview */}
                 <div className="aspect-[3/4] rounded-lg overflow-hidden bg-bg-alt mb-3 relative">
-                  {cert.type === "jpg" ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={cert.file}
-                      alt={`Сертификат ${cert.uni}`}
-                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center text-navy/40">
-                      <svg className="w-12 h-12 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                      </svg>
-                      <span className="text-xs font-medium uppercase">PDF</span>
-                    </div>
-                  )}
+                  <BlurImage
+                    src={cert.file}
+                    alt={`Сертификат ${cert.uni}`}
+                    className="w-full h-full"
+                  />
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-navy/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="bg-white rounded-full p-2">

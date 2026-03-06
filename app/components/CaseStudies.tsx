@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import StaggerGrid from "./StaggerGrid";
+import BlurImage from "./BlurImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,7 +23,7 @@ const cases = [
   {
     name: "Рахмат Д.",
     from: "Индонезия",
-    photo: "/students/rahmat.jpg",
+    photo: "/students/rahmat.webp",
     initials: "РД",
     university: "HUST",
     program: "Computer Science · PhD",
@@ -32,7 +33,7 @@ const cases = [
   {
     name: "Кайрат А.",
     from: "Кыргызстан",
-    photo: "/students/kayrat.jpg",
+    photo: "/students/kayrat.webp",
     initials: "КА",
     university: "Shandong University",
     program: "Медицина · Бакалавриат",
@@ -42,7 +43,7 @@ const cases = [
   {
     name: "Саид М.",
     from: "Марокко",
-    photo: "/students/said.jpg",
+    photo: "/students/said.webp",
     initials: "СМ",
     university: "Zhejiang University of Technology",
     program: "Бизнес · Бакалавриат",
@@ -62,7 +63,7 @@ const cases = [
   {
     name: "Лакшан Э.",
     from: "Шри-Ланка",
-    photo: "/students/lachshan.jpg",
+    photo: "/students/lachshan.webp",
     initials: "ЛЭ",
     university: "Shanghai University",
     program: "Экономика · Магистратура",
@@ -72,23 +73,16 @@ const cases = [
 ];
 
 function StudentPhoto({ src, initials, name }: { src: string; initials: string; name: string }) {
-  const [failed, setFailed] = useState(false);
-
-  if (failed) {
-    return (
-      <div className="absolute inset-0 bg-navy/10 flex items-center justify-center">
-        <span className="text-3xl font-bold text-navy/30 select-none">{initials}</span>
-      </div>
-    );
-  }
-
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <BlurImage
       src={src}
       alt={name}
-      onError={() => setFailed(true)}
-      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+      className="absolute inset-0 w-full h-full"
+      fallback={
+        <div className="absolute inset-0 bg-navy/10 flex items-center justify-center">
+          <span className="text-3xl font-bold text-navy/30 select-none">{initials}</span>
+        </div>
+      }
     />
   );
 }
@@ -113,7 +107,7 @@ export default function CaseStudies() {
   }, { scope: ref });
 
   return (
-    <section ref={ref} className="bg-white py-20 md:py-28" id="cases">
+    <section ref={ref} className="bg-white py-20 md:py-28 overflow-hidden" id="cases">
       <div className="max-w-300 mx-auto px-6">
         <div data-cases-header className="md:flex md:items-end md:justify-between mb-14">
           <div>
