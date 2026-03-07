@@ -103,7 +103,7 @@ export default function Hero() {
             Поступи в Китай
             <br />
             <span className="relative inline-block text-gold">
-              по стипендии
+              со стипендией
               <span data-hero-shimmer className="absolute inset-0 w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/15 to-transparent blur-[6px] pointer-events-none" />
             </span>
           </h1>

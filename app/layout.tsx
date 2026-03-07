@@ -21,7 +21,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Учись в Китае по стипендии | MilGEC",
+  title: "Учись в Китае со стипендией | MilGEC",
   description:
     "90% наших студентов получают стипендию. MilGEC помогает поступить в 200+ китайских университетов — от подготовки документов до зачисления. Бесплатный расчёт.",
   keywords:
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     canonical: "https://milgec.com",
   },
   openGraph: {
-    title: "Учись в Китае по стипендии | MilGEC",
+    title: "Учись в Китае со стипендией | MilGEC",
     description:
       "90% наших студентов получают стипендию. Поступите в 200+ китайских университетов с полным сопровождением — от документов до зачисления.",
     url: "https://milgec.com",
@@ -44,19 +44,16 @@ export const metadata: Metadata = {
         url: "https://milgec.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "MilGEC — Учись в Китае по стипендии",
+        alt: "MilGEC — Учись в Китае со стипендией",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Учись в Китае по стипендии | MilGEC",
+    title: "Учись в Китае со стипендией | MilGEC",
     description:
       "90% наших студентов получают стипендию. 200+ университетов-партнёров.",
     images: ["https://milgec.com/og-image.jpg"],
-  },
-  other: {
-    "google-site-verification": "VERIFICATION_CODE_HERE",
   },
 };
 
