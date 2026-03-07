@@ -9,56 +9,71 @@ gsap.registerPlugin(ScrollTrigger);
 
 const tiers = [
   {
-    name: "Бесплатная оценка",
-    price: "Бесплатно",
-    best: "Хочу понять свои варианты",
+    name: "Стандартный",
+    price: "$1 500",
+    desc: "Частичная скидка на обучение",
     features: [
       "Анализ академического профиля",
       "Рекомендации по университетам",
-      "Оценка шансов на стипендию",
-      "Персональная разбивка стоимости",
-      "Консультация в WhatsApp",
-    ],
-    notIncluded: [
-      "Подготовка документов",
-      "Подача заявок",
-      "Визовая поддержка",
-      "Встреча в Китае",
-    ],
-    cta: "Получить бесплатную оценку",
-    featured: false,
-    free: true,
-  },
-  {
-    name: "Пакет «Поступление»",
-    price: "$—",
-    best: "Я точно хочу учиться в Китае",
-    features: [
-      "Всё из бесплатной оценки",
       "Подготовка и оформление документов",
       "Мотивационное письмо и CV",
-      "Подача заявок в 3-5 вузов",
-      "Оптимизация заявки на стипендию",
+      "Подача заявок в несколько вузов",
+      "Оптимизация заявки на скидку",
       "Сопровождение до зачисления",
-      "Коммуникация с приёмной комиссией",
     ],
     notIncluded: [
       "Визовая поддержка",
       "Встреча в аэропорту",
       "Поддержка после зачисления",
     ],
-    cta: "Начать поступление",
+    cta: "Выбрать пакет",
     featured: false,
-    free: false,
   },
   {
-    name: "Полный пакет",
-    price: "$—",
-    best: "Сделайте всё за меня",
+    name: "Под зонтом",
+    price: "$2 000",
+    desc: "Бесплатное обучение",
     features: [
-      "Всё из пакета «Поступление»",
+      "Всё из пакета «Стандартный»",
+      "Подача на полный грант обучения",
+      "Стратегия поступления на бюджет",
+      "Коммуникация с приёмной комиссией",
+      "Работа с несколькими вузами",
+      "Сопровождение до зачисления",
+    ],
+    notIncluded: [
+      "Визовая поддержка",
+      "Встреча в аэропорту",
+      "Поддержка после зачисления",
+    ],
+    cta: "Выбрать пакет",
+    featured: false,
+  },
+  {
+    name: "Ударник",
+    price: "$2 500",
+    desc: "Обучение + проживание",
+    features: [
+      "Всё из пакета «Под зонтом»",
+      "Грант на обучение и проживание",
+      "Приоритетный подбор вузов",
       "Помощь с оформлением визы X1/X2",
       "Подготовка к отъезду и чек-лист",
+    ],
+    notIncluded: [
+      "Встреча в аэропорту",
+      "Поддержка 24/7",
+    ],
+    cta: "Выбрать пакет",
+    featured: false,
+  },
+  {
+    name: "Всё включено",
+    price: "$3 000",
+    desc: "Полный грант: обучение + проживание + стипендия",
+    features: [
+      "Всё из пакета «Ударник»",
+      "Полный грант со стипендией",
       "Встреча в аэропорту в Китае",
       "Регистрация в кампусе и общежитии",
       "Открытие банковского счёта и SIM",
@@ -68,7 +83,6 @@ const tiers = [
     notIncluded: [],
     cta: "Полное сопровождение",
     featured: true,
-    free: false,
   },
 ];
 
@@ -108,7 +122,7 @@ export default function ServiceTiers() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5 items-start">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
           {tiers.map((t) => (
             <div
               key={t.name}
@@ -124,20 +138,15 @@ export default function ServiceTiers() {
                   Самый популярный
                 </div>
               )}
-              {t.free && (
-                <div className="inline-flex self-start bg-success/10 text-success text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-lg mb-4">
-                  Начните здесь
-                </div>
-              )}
 
               <h3 className={`text-lg font-bold mb-1 ${t.featured ? "text-white" : "text-navy"}`}>
                 {t.name}
               </h3>
-              <div className={`text-2xl font-extrabold mb-1 ${t.free ? "text-success" : t.featured ? "text-white" : "text-navy"}`}>
+              <div className={`text-2xl font-extrabold mb-1 ${t.featured ? "text-white" : "text-navy"}`}>
                 {t.price}
               </div>
               <p className={`text-[13px] mb-6 ${t.featured ? "text-white/50" : "text-text-muted"}`}>
-                &laquo;{t.best}&raquo;
+                {t.desc}
               </p>
 
               <ul className="flex flex-col gap-2.5 mb-4 grow">
@@ -169,9 +178,7 @@ export default function ServiceTiers() {
                 className={`block text-center font-semibold text-sm py-3.5 rounded-xl transition-all ${
                   t.featured
                     ? "bg-gold hover:bg-gold-hover text-white hover:shadow-[0_4px_20px_rgba(212,168,67,0.35)]"
-                    : t.free
-                      ? "bg-success hover:bg-success/90 text-white hover:shadow-[0_4px_20px_rgba(34,197,94,0.25)]"
-                      : "border border-navy/20 text-navy hover:bg-navy hover:text-white"
+                    : "border border-navy/20 text-navy hover:bg-navy hover:text-white"
                 }`}
               >
                 {t.cta}
@@ -181,6 +188,7 @@ export default function ServiceTiers() {
         </div>
 
         <p className="text-text-muted text-xs text-center mt-8 max-w-150 mx-auto">
+          Оплата в тенге по курсу Национального Банка РК на дату оплаты.
           В стоимость не входят: плата за обучение, проживание,
           транспорт, страховка и личные расходы — они оплачиваются напрямую.
         </p>
