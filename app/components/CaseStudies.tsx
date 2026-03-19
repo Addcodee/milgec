@@ -227,7 +227,7 @@ export default function CaseStudies() {
               </svg>
             </a>
             <a
-              href="https://wa.me/8613792888176?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B8%D1%82%D1%8C%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D0%B0%D1%88%D0%B8%20%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D1%8B."
+              href="https://wa.me/77089826615?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B8%D1%82%D1%8C%20%D0%BA%D0%B0%D0%BA%20%D0%B2%D0%B0%D1%88%D0%B8%20%D1%81%D1%82%D1%83%D0%B4%D0%B5%D0%BD%D1%82%D1%8B."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-whatsapp hover:text-whatsapp/80 text-sm font-semibold transition-colors"

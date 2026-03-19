@@ -74,7 +74,7 @@ const jsonLd = {
   contactPoint: [
     {
       "@type": "ContactPoint",
-      telephone: "+86-13792888176",
+      telephone: "+7-708-982-6615",
       contactType: "admissions",
       email: "admission@milgec.com",
       availableLanguage: ["Russian", "English", "Chinese", "Indonesian", "Arabic"],
