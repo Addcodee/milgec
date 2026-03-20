@@ -60,6 +60,9 @@ export default function LeadForm() {
       });
 
       if (!res.ok) throw new Error();
+      if (typeof window !== "undefined" && typeof window.fbq === "function") {
+        window.fbq("track", "Lead");
+      }
       setSubmitted(true);
     } catch {
       setError("Не удалось отправить. Попробуйте ещё раз или напишите нам напрямую.");

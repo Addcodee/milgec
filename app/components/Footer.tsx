@@ -20,7 +20,7 @@ export default function Footer() {
             <h4 className="text-white/20 text-[10px] font-semibold uppercase tracking-[0.18em] mb-3">Контакты</h4>
             <div className="flex flex-col gap-1.5">
               <a href="tel:+77089826615" className="text-white/40 text-sm hover:text-white transition-colors">+7 708 982 6615</a>
-              <a href="mailto:admission@milgec.com" className="text-white/40 text-sm hover:text-gold transition-colors">admission@milgec.com</a>
+              <a href="mailto:milgec.kz@mail.ru" className="text-white/40 text-sm hover:text-gold transition-colors">milgec.kz@mail.ru</a>
             </div>
           </div>
 
@@ -39,10 +39,10 @@ export default function Footer() {
           <div>
             <h4 className="text-white/20 text-[10px] font-semibold uppercase tracking-[0.18em] mb-3">Ссылки</h4>
             <div className="flex flex-col gap-1.5">
-              <a href="#about" className="text-white/40 text-sm hover:text-white transition-colors">О нас</a>
-              <a href="#partners" className="text-white/40 text-sm hover:text-white transition-colors">Партнёры</a>
-              <a href="#pricing" className="text-white/40 text-sm hover:text-white transition-colors">Тарифы</a>
-              <a href="#form" className="text-white/40 text-sm hover:text-gold transition-colors">Оценка шансов</a>
+              <a href="/#about" className="text-white/40 text-sm hover:text-white transition-colors">О нас</a>
+              <a href="/#partners" className="text-white/40 text-sm hover:text-white transition-colors">Партнёры</a>
+              <a href="/#pricing" className="text-white/40 text-sm hover:text-white transition-colors">Тарифы</a>
+              <a href="/#form" className="text-white/40 text-sm hover:text-gold transition-colors">Оценка шансов</a>
             </div>
           </div>
 
@@ -71,7 +71,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="mailto:admission@milgec.com"
+              href="mailto:milgec.kz@mail.ru"
               className="w-9 h-9 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-white/30 hover:text-gold hover:border-gold/30 transition-all"
               aria-label="Email"
             >
@@ -86,11 +86,7 @@ export default function Footer() {
         <div className="border-t border-white/[0.06] pt-5 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-white/15 text-xs">&copy; 2020–2026 MilGEC. Все права защищены.</p>
           <div className="flex items-center gap-3 text-white/15 text-xs">
-            <a href="https://milgec.com" target="_blank" rel="noopener noreferrer" className="hover:text-white/30 transition-colors">milgec.com</a>
-            <span>&middot;</span>
-            <a href="https://milgec.co.id" target="_blank" rel="noopener noreferrer" className="hover:text-white/30 transition-colors">milgec.co.id</a>
-            <span>&middot;</span>
-            <a href="#" className="hover:text-white/30 transition-colors">Конфиденциальность</a>
+            <a href="https://milgec.kz" target="_blank" rel="noopener noreferrer" className="hover:text-white/30 transition-colors">milgec.kz</a>
           </div>
         </div>
       </div>

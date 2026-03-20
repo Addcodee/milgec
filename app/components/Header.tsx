@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || menuOpen ? "bg-navy/95 backdrop-blur-sm border-b border-white/10" : "bg-transparent border-b border-transparent"}`}>
       <div className="max-w-[1100px] mx-auto px-4 flex items-center justify-between h-16">
-        <a href="#">
+        <a href="/">
           <Image
             src="/logo-light.png"
             alt="MilGEC"

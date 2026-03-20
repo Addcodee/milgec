@@ -11,9 +11,19 @@ import WhyMilGEC from "./WhyMilGEC";
 import ServiceCTA from "./ServiceCTA";
 
 export const metadata: Metadata = {
-  title: "Услуги | MilGEC — Полное сопровождение поступления в Китай",
+  title: "Услуги — Полное сопровождение поступления в Китай",
   description:
     "От бесплатной оценки шансов до встречи в аэропорту. Узнайте, как MilGEC помогает на каждом этапе поступления в китайский университет.",
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    title: "Услуги — Полное сопровождение поступления в Китай | MilGEC",
+    description:
+      "От бесплатной оценки шансов до встречи в аэропорту. Узнайте, как MilGEC помогает на каждом этапе поступления в китайский университет.",
+    url: "/services",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
 };
 
 export default function ServicesPage() {

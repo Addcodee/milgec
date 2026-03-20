@@ -32,6 +32,7 @@ export async function POST(req: Request) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: chatId,
+        message_thread_id: Number(process.env.TELEGRAM_TOPIC_ID),
         text,
         parse_mode: "Markdown",
       }),

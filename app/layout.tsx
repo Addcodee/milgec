@@ -21,39 +21,45 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Учись в Китае со стипендией | MilGEC",
+  metadataBase: new URL("https://milgec.kz"),
+  title: {
+    default: "Учись в Китае со стипендией | MilGEC",
+    template: "%s | MilGEC",
+  },
   description:
     "90% наших студентов получают стипендию. MilGEC помогает поступить в 200+ китайских университетов — от подготовки документов до зачисления. Бесплатный расчёт.",
   keywords:
     "учёба в Китае, стипендия в Китае, поступление в китайский университет, образование в Китае, CSC стипендия, гранты Китай, учиться в Китае, китайские университеты, стипендия правительства Китая, study in China",
   authors: [{ name: "MilGEC - Millennium Gateway Education China" }],
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
-    canonical: "https://milgec.com",
+    canonical: "/",
   },
   openGraph: {
     title: "Учись в Китае со стипендией | MilGEC",
     description:
       "90% наших студентов получают стипендию. Поступите в 200+ китайских университетов с полным сопровождением — от документов до зачисления.",
-    url: "https://milgec.com",
+    url: "/",
     siteName: "MilGEC",
     locale: "ru_RU",
     type: "website",
-    images: [
-      {
-        url: "https://milgec.com/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "MilGEC — Учись в Китае со стипендией",
-      },
-    ],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "MilGEC — Учись в Китае со стипендией" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Учись в Китае со стипендией | MilGEC",
     description:
       "90% наших студентов получают стипендию. 200+ университетов-партнёров.",
-    images: ["https://milgec.com/og-image.jpg"],
+    images: ["/opengraph-image"],
   },
 };
 
@@ -61,8 +67,8 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
   name: "MilGEC - Millennium Gateway Education China",
-  url: "https://milgec.com",
-  logo: "https://milgec.com/logo.png",
+  url: "https://milgec.kz",
+  logo: "https://milgec.kz/logo.png",
   description:
     "Образовательное агентство, помогающее иностранным студентам учиться в Китае. 200+ университетов-партнёров, 6000+ студентов с 2020 года.",
   foundingDate: "2020",
@@ -76,11 +82,14 @@ const jsonLd = {
       "@type": "ContactPoint",
       telephone: "+7-708-982-6615",
       contactType: "admissions",
-      email: "admission@milgec.com",
+      email: "milgec.kz@mail.ru",
       availableLanguage: ["Russian", "English", "Chinese", "Indonesian", "Arabic"],
     },
   ],
-  sameAs: ["https://milgec.com", "https://milgec.co.id"],
+  sameAs: [
+    "https://instagram.com/milgec.kz",
+    "https://wa.me/77089826615",
+  ],
   areaServed: {
     "@type": "Place",
     name: "Worldwide",
@@ -99,6 +108,21 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Meta Pixel */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1415557556474584');fbq('track','PageView');`,
+          }}
+        />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1415557556474584&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
       </head>
       <body className={`${fixelText.variable} ${spaceGrotesk.variable} antialiased`}>
         {children}

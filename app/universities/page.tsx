@@ -8,9 +8,19 @@ import UniversityList from "./UniversityList";
 import UniversityCTA from "./UniversityCTA";
 
 export const metadata: Metadata = {
-  title: "Университеты-партнёры | MilGEC — 200+ вузов Китая",
+  title: "Университеты-партнёры — 200+ вузов Китая",
   description:
     "Полный список университетов Китая, с которыми сотрудничает MilGEC. Официальные авторизационные письма от каждого вуза.",
+  alternates: {
+    canonical: "/universities",
+  },
+  openGraph: {
+    title: "Университеты-партнёры — 200+ вузов Китая | MilGEC",
+    description:
+      "Полный список университетов Китая, с которыми сотрудничает MilGEC. Официальные авторизационные письма от каждого вуза.",
+    url: "/universities",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
 };
 
 export default function UniversitiesPage() {
