@@ -1,7 +1,28 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { name, whatsapp, country, program, startDate } = await req.json();
+  const body = await req.json();
+
+  const name = String(body.name || "")
+    .replace(/[^a-zA-Zа-яА-ЯёЁәіңғүұқөһӘІҢҒҮҰҚӨҺ\s-]/g, "")
+    .trim()
+    .slice(0, 50);
+  const whatsapp = String(body.whatsapp || "")
+    .replace(/[^0-9+() -]/g, "")
+    .trim()
+    .slice(0, 18);
+  const country = String(body.country || "")
+    .replace(/[^a-zA-Zа-яА-ЯёЁ\s-]/g, "")
+    .trim()
+    .slice(0, 30);
+  const program = String(body.program || "")
+    .replace(/[^a-zA-Zа-яА-ЯёЁ()\s-]/g, "")
+    .trim()
+    .slice(0, 40);
+  const startDate = String(body.startDate || "")
+    .replace(/[^a-zA-Zа-яА-ЯёЁ0-9()\s-]/g, "")
+    .trim()
+    .slice(0, 30);
 
   if (!name || !whatsapp) {
     return NextResponse.json({ error: "Имя и WhatsApp обязательны" }, { status: 400 });

@@ -139,8 +139,9 @@ export default function LeadForm() {
                     <input
                       type="text"
                       value={data.name}
-                      onChange={(e) => setData({ ...data, name: e.target.value })}
+                      onChange={(e) => setData({ ...data, name: e.target.value.replace(/[^a-zA-Zа-яА-ЯёЁәіңғүұқөһӘІҢҒҮҰҚӨҺ\s-]/g, "") })}
                       placeholder="Иван Петров"
+                      maxLength={50}
                       className={inputClass}
                     />
                   </div>
@@ -150,8 +151,9 @@ export default function LeadForm() {
                     <input
                       type="tel"
                       value={data.whatsapp}
-                      onChange={(e) => setData({ ...data, whatsapp: e.target.value })}
+                      onChange={(e) => setData({ ...data, whatsapp: e.target.value.replace(/[^0-9+() -]/g, "") })}
                       placeholder="+7 900 123 45 67"
+                      maxLength={18}
                       className={inputClass}
                     />
                   </div>
