@@ -32,7 +32,7 @@ export default function ServicesPage() {
       <Header />
       <ServicesHero />
       <CoreServices />
-      <ServiceTiers />
+      {/* <ServiceTiers /> */}
       <WhyMilGEC />
       <ServiceCTA />
       <Footer />

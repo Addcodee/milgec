@@ -32,7 +32,7 @@ export default function Home() {
       {/* <CaseStudies /> */}
       <MiniCTA text="Получить бесплатную оценку" urgency="Осталось 3 месяца до дедлайна осеннего набора" />
       <Filter />
-      <Pricing />
+      {/* <Pricing /> */}
       <LeadForm />
       <Footer />
       <WhatsAppButton />
