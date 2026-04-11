@@ -24,13 +24,19 @@ export default function Home() {
       <TrustStrip />
       <AboutUs />
       <PainPoints />
-      <MiniCTA text="Узнайте свои шансы бесплатно" urgency="Приём на осень 2026 — подача документов до июня" />
+      <MiniCTA
+        text="Узнайте свои шансы бесплатно"
+        urgency="Приём на осень 2026 — подача документов до июня"
+      />
       <EventsGallery />
       <Trust />
       <Process />
       <OfficialPartner />
       {/* <CaseStudies /> */}
-      <MiniCTA text="Получить бесплатную оценку" urgency="Осталось 3 месяца до дедлайна осеннего набора" />
+      <MiniCTA
+        text="Получить бесплатную оценку"
+        urgency="Осталось 3 месяца до дедлайна осеннего набора"
+      />
       <Filter />
       {/* <Pricing /> */}
       <LeadForm />
