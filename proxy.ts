@@ -2,26 +2,20 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
-  const auth = request.headers.get("authorization");
+  const { pathname } = request.nextUrl;
 
-  if (auth) {
-    const [scheme, encoded] = auth.split(" ");
-    if (scheme === "Basic" && encoded) {
-      const decoded = atob(encoded);
-      const [user, password] = decoded.split(":");
-      if (
-        user === process.env.BASIC_AUTH_USER &&
-        password === process.env.BASIC_AUTH_PASSWORD
-      ) {
-        return NextResponse.next();
-      }
-    }
+  if (
+    pathname === "/maintenance" ||
+    pathname.startsWith("/_next/") ||
+    pathname.startsWith("/api/") ||
+    pathname.includes(".")
+  ) {
+    return NextResponse.next();
   }
 
-  return new NextResponse("Authentication required", {
-    status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="Restricted"' },
-  });
+  const url = request.nextUrl.clone();
+  url.pathname = "/maintenance";
+  return NextResponse.rewrite(url);
 }
 
 export const config = {
